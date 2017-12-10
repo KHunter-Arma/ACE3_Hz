@@ -26,18 +26,44 @@ private _config = configFile >> "CfgVehicles" >> typeOf _sink;
 private _rate =  getNumber (_config >> QGVAR(flowRate)) * GVAR(rate);
 private _maxFuel = getNumber (_config >> QGVAR(fuelCapacity));
 
+// Hunter'z Economy Interface
+private _HzFuelCap = _maxFuel;
+
 // Fall back to vanilla fuelCapacity value (only air and sea vehicles don't have this defined by default by us)
 // Air and sea vehicles have that value properly defined in liters, unlike ground vehicles which is is formula of (range * tested factor) - different fuel consumption system than ground vehicles
 if (_maxFuel == 0) then {
     _maxFuel = getNumber (_config >> "fuelCapacity");
+		_HzFuelCap = (configname _config) call Hz_econ_fnc_getFuelCapacity;
 };
+
+private _HzInitFuel = fuel _target;
+private _HzCost = Hz_econ_fuelPrice*(1-_HzInitFuel)*_HzFuelCap;
+
+if (Hz_econ_funds < _HzCost) exitWith {hint "Insufficient funds!"};
 
 [{
     params ["_args", "_pfID"];
-    _args params [["_source", objNull, [objNull]], ["_sink", objNull, [objNull]], ["_unit", objNull, [objNull]], ["_nozzle", objNull, [objNull]], ["_rate", 1, [0]], ["_startFuel", 0, [0]], ["_maxFuel", 0, [0]], ["_connectFromPoint", [0,0,0], [[]], 3], ["_connectToPoint", [0,0,0], [[]], 3]];
+    _args params [["_source", objNull, [objNull]], ["_sink", objNull, [objNull]], ["_unit", objNull, [objNull]], ["_nozzle", objNull, [objNull]], ["_rate", 1, [0]], ["_startFuel", 0, [0]], ["_maxFuel", 0, [0]], ["_connectFromPoint", [0,0,0], [[]], 3], ["_connectToPoint", [0,0,0], [[]], 3],
+		["_HzFuelCap",0,[1]],["_HzInitFuel",0,[1]]];
 
     if !(_nozzle getVariable [QGVAR(isConnected), false]) exitWith {
         [_pfID] call CBA_fnc_removePerFrameHandler;
+				
+				[_sink,_HzFuelCap,_HzInitFuel] spawn {
+				
+					private _veh = _this select 0;
+					private _fuelCap = _this select 1;
+					private _initFuel = _this select 2;
+				
+					sleep 2;
+					
+					private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
+					hint format ["Refuel cost: $%1",_HzCost];
+					Hz_econ_funds = Hz_econ_funds - _HzCost;
+					publicVariable "Hz_econ_funds";
+				
+				};
+				
     };
 
     if (!alive _source || {!alive _sink}) exitWith {
@@ -47,6 +73,21 @@ if (_maxFuel == 0) then {
         _nozzle setVariable [QGVAR(sink), nil, true];
         _sink setVariable [QGVAR(nozzle), nil, true];
         [_pfID] call CBA_fnc_removePerFrameHandler;
+				
+				[_sink,_HzFuelCap,_HzInitFuel] spawn {
+				
+					private _veh = _this select 0;
+					private _fuelCap = _this select 1;
+					private _initFuel = _this select 2;
+				
+					sleep 2;
+					
+					private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
+					hint format ["Refuel cost: $%1",_HzCost];
+					Hz_econ_funds = Hz_econ_funds - _HzCost;
+					publicVariable "Hz_econ_funds";
+				
+				};
     };
     private _hoseLength = _source getVariable [QGVAR(hoseLength), GVAR(hoseLength)];
     private _tooFar = ((_sink modelToWorld _connectToPoint) distance (_source modelToWorld _connectFromPoint)) > (_hoseLength - 2);
@@ -59,15 +100,32 @@ if (_maxFuel == 0) then {
         _nozzle setVariable [QGVAR(sink), nil, true];
         _sink setVariable [QGVAR(nozzle), nil, true];
         [_pfID] call CBA_fnc_removePerFrameHandler;
+				
+				[_sink,_HzFuelCap,_HzInitFuel] spawn {
+				
+					private _veh = _this select 0;
+					private _fuelCap = _this select 1;
+					private _initFuel = _this select 2;
+				
+					sleep 2;
+					
+					private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
+					hint format ["Refuel cost: $%1",_HzCost];
+					Hz_econ_funds = Hz_econ_funds - _HzCost;
+					publicVariable "Hz_econ_funds";
+				
+				};
     };
 
     private _finished = false;
     private _fueling = _nozzle getVariable [QGVAR(isRefueling), false];
     if (_fueling) then {
-        if (isEngineOn _sink) exitWith {
+		
+				if (isEngineOn _sink) exitWith {
             _nozzle setVariable [QGVAR(lastTickMissionTime), nil];
             _nozzle setVariable [QGVAR(isRefueling), false, true];
         };
+		
         private _fuelInSource = [_source] call FUNC(getFuel);
         if (_fuelInSource == 0) exitWith {
             [LSTRING(Hint_SourceEmpty), 2, _unit] call EFUNC(common,displayTextStructured);
@@ -117,5 +175,7 @@ if (_maxFuel == 0) then {
     fuel _sink,
     _maxFuel,
     _nozzle getVariable [QGVAR(attachPos), [0,0,0]],
-    _connectToPoint
+    _connectToPoint,
+		_HzFuelCap,
+		_HzInitFuel
 ]] call CBA_fnc_addPerFrameHandler;
