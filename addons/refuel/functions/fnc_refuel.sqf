@@ -120,12 +120,6 @@ if (Hz_econ_funds < _HzCost) exitWith {hint "Insufficient funds!"};
     private _finished = false;
     private _fueling = _nozzle getVariable [QGVAR(isRefueling), false];
     if (_fueling) then {
-		
-				if (isEngineOn _sink) exitWith {
-            _nozzle setVariable [QGVAR(lastTickMissionTime), nil];
-            _nozzle setVariable [QGVAR(isRefueling), false, true];
-        };
-		
         private _fuelInSource = [_source] call FUNC(getFuel);
         if (_fuelInSource == 0) exitWith {
             [LSTRING(Hint_SourceEmpty), 2, _unit] call EFUNC(common,displayTextStructured);
