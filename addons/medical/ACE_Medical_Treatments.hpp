@@ -150,7 +150,7 @@ class ACE_Medical_Actions {
             // What is the level of medical skill required for this treatment action? 0 = all soldiers, 1 = medic, 2 = doctor
             requiredMedic = 0;
             // The time it takes for a treatment action to complete. Time is in seconds.
-            treatmentTime = 8;
+            treatmentTime = 18;
             // Item required for the action. Leave empty for no item required.
             items[] = {"ACE_fieldDressing"};
             condition = "";
@@ -199,7 +199,7 @@ class ACE_Medical_Actions {
             displayNameProgress = CSTRING(Applying_Tourniquet);
             allowedSelections[] = {"hand_l", "hand_r", "leg_l", "leg_r"};
             items[] = {"ACE_tourniquet"};
-            treatmentTime = 4;
+            treatmentTime = 18;
             callbackSuccess = QUOTE(DFUNC(treatmentTourniquet));
             condition = QUOTE(!([ARR_2(_this select 1, _this select 2)] call FUNC(hasTourniquetAppliedTo)));
             litter[] = {};
@@ -210,7 +210,8 @@ class ACE_Medical_Actions {
             allowedSelections[] = {"hand_l", "hand_r", "leg_l", "leg_r"};
             category = "medication";
             items[] = {"ACE_morphine"};
-            treatmentTime = 3;
+            treatmentTime = 11;
+						requiredMedic = 1;
             callbackSuccess = QUOTE(DFUNC(treatmentAdvanced_medication));
             animationCaller = "AinvPknlMstpSnonWnonDnon_medic1";
             litter[] = { {"All", "", {"ACE_MedicalLitter_morphine"}} };
@@ -241,7 +242,7 @@ class ACE_Medical_Actions {
             category = "advanced";
             items[] = {"ACE_bloodIV"};
             requiredMedic = 1;
-            treatmentTime = 7;
+            treatmentTime = 60;
             callbackSuccess = QUOTE(DFUNC(treatmentIV));
             animationCaller = "AinvPknlMstpSnonWnonDnon_medic1";
             litter[] = {};
@@ -291,7 +292,7 @@ class ACE_Medical_Actions {
             allowSelfTreatment = 0;
             requiredMedic = QGVAR(medicSetting_SurgicalKit);
             patientStateCondition = QGVAR(useCondition_SurgicalKit);
-            treatmentTime = "(count ((_this select 1) getVariable ['ACE_Medical_bandagedWounds', []]) * 5)";
+            treatmentTime = "(count ((_this select 1) getVariable ['ACE_Medical_bandagedWounds', []]) * 60)";
             callbackSuccess = "";
             callbackProgress = QUOTE(DFUNC(treatmentAdvanced_surgicalKit_onProgress));
             itemConsumed = QGVAR(consumeItem_SurgicalKit);
@@ -307,7 +308,8 @@ class ACE_Medical_Actions {
             allowSelfTreatment = 0;
             requiredMedic = QGVAR(medicSetting_PAK);
             patientStateCondition = QGVAR(useCondition_PAK);
-            treatmentTime = QUOTE((_this select 1) call FUNC(treatmentAdvanced_fullHealTreatmentTime));
+            //treatmentTime = QUOTE((_this select 1) call FUNC(treatmentAdvanced_fullHealTreatmentTime));
+						treatmentTime = "30";
             callbackSuccess = QUOTE(DFUNC(treatmentAdvanced_fullHeal));
             itemConsumed = QGVAR(consumeItem_PAK);
             animationPatient = "";
@@ -329,7 +331,7 @@ class ACE_Medical_Actions {
             category = "examine";
             treatmentLocations[] = {"All"};
             requiredMedic = 0;
-            treatmentTime = 2;
+            treatmentTime = 4;
             items[] = {};
             callbackSuccess = QUOTE(DFUNC(actionCheckPulse));
             callbackFailure = "";
@@ -342,6 +344,8 @@ class ACE_Medical_Actions {
             litter[] = {};
         };
         class CheckBloodPressure: CheckPulse {
+						requiredMedic = 1;
+						treatmentTime = 20;
             displayName = CSTRING(Actions_CheckBloodPressure);
             callbackSuccess = QUOTE(DFUNC(actionCheckBloodPressure));
             displayNameProgress = CSTRING(Check_Bloodpressure_Content);
@@ -355,7 +359,7 @@ class ACE_Medical_Actions {
         class RemoveTourniquet: Tourniquet {
             displayName = CSTRING(Actions_RemoveTourniquet);
             items[] = {};
-            treatmentTime = 2.5;
+            treatmentTime = 8;
             callbackSuccess = QUOTE(DFUNC(actionRemoveTourniquet));
             condition = QUOTE([ARR_2(_this select 1, _this select 2)] call FUNC(hasTourniquetAppliedTo));
             displayNameProgress = CSTRING(RemovingTourniquet);
@@ -369,7 +373,7 @@ class ACE_Medical_Actions {
             allowedSelections[] = {"body"};
             allowSelfTreatment = 0;
             requiredMedic = 0;
-            treatmentTime = 15;
+            treatmentTime = 20;
             items[] = {};
             condition = "!([(_this select 1)] call ace_common_fnc_isAwake)";
             callbackSuccess = QUOTE(DFUNC(treatmentAdvanced_CPR));
@@ -391,7 +395,7 @@ class ACE_Medical_Actions {
             treatmentLocations[] = {"All"};
             allowSelfTreatment = 0;
             requiredMedic = 0;
-            treatmentTime = 15;
+            treatmentTime = 40;
             items[] = {"ACE_bodyBag"};
             condition = "!alive (_this select 1);";
             callbackSuccess = QUOTE(DFUNC(actionPlaceInBodyBag));
