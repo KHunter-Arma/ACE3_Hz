@@ -31,7 +31,9 @@ private _HzInitDamage = 0;
 } foreach _HzInitHitpointsDamage;
 _HzInitDamage = _HzInitDamage / _count;
 
-private _HzCost = ((typeof _vehicle) call Hz_econ_vehStore_fnc_getVehCost)*_HzInitDamage;
+private _HzCost = (typeof _vehicle) call Hz_econ_vehStore_fnc_getVehCost;
+if (_HzCost == -1) exitwith {hint "No spare parts available for this vehicle!"};
+_HzCost = _HzCost *_HzInitDamage;
 if (Hz_econ_funds < _HzCost) exitwith {hint "Insufficient funds for repairs!"};
 
 private _postRepairDamageMin = [_unit] call FUNC(getPostRepairDamage);
