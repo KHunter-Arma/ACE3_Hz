@@ -46,7 +46,7 @@ if (alive _target) exitWith {
    // _target setVariable [QGVAR(ivBags), nil, true];
 
     // damage storage
-   // _target setVariable [QGVAR(bodyPartStatus), [0,0,0,0,0,0], true];
+    _target setVariable [QGVAR(bodyPartStatus), [0,0,0,0,0,0], true];
 
     // airway
    // _target setVariable [QGVAR(airwayStatus), 100, true];
