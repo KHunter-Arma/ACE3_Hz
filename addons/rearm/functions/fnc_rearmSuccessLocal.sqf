@@ -32,30 +32,64 @@ private _HzAmmoUnitCost = _HzAmmoClass call Hz_econ_combatStore_fnc_getAmmoPrice
 if (_HzAmmoUnitCost == -1) exitwith {hint "This type of ammo is not in stock!"};
 
 if (_pylon > 0) exitWith {
-	if (_turretPath isEqualTo [-1]) then {_turretPath = [];}; // Convert back to pylon turret format
-	private _currentCount = _vehicle ammoOnPylon _pylon;
-	private _newCount = ((_currentCount max 0) + _numRounds) min _rounds;
-	
-	// Hunter'z Economy Interface
-	private _HzRoundsAdded = _newCount - _currentCount;
-	private _HzCost = _HzRoundsAdded*_HzAmmoUnitCost;
-	
-	if (Hz_econ_funds < _HzCost) then {
+
+			if (GVAR(level) == 1) then {
+        // Fill magazine completely
+        if (_turretPath isEqualTo [-1]) then {_turretPath = [];}; // Convert back to pylon turret format
+        TRACE_2("",_pylon,_magazineClass,_rounds);
+				
+			  private _HzCost = _rounds*_HzAmmoUnitCost;
+
+				if (Hz_econ_funds < _HzCost) then {
 		
-		"Insufficient funds!" remoteExecCall ["hint",_unit,false];
-		
-	} else {
-		
-		Hz_econ_funds = Hz_econ_funds - _HzCost;
-		publicVariable "Hz_econ_funds";
-		private _hint = format ["Rearm cost: $%1",_HzCost];
-		_hint remoteExecCall ["hint",_unit,false];
-		
-		TRACE_2("",_pylon,_magazineClass,_newCount);
-		_vehicle setPylonLoadOut [_pylon, _magazineClass, false, _turretPath];
-		_vehicle setAmmoOnPylon [_pylon, _newCount];
-		
-	};
+					"Insufficient funds!" remoteExecCall ["hint",_unit,false];
+					
+				} else {
+					
+					Hz_econ_funds = Hz_econ_funds - _HzCost;
+					publicVariable "Hz_econ_funds";
+					private _hint = format ["Rearm cost: $%1",_HzCost];
+					_hint remoteExecCall ["hint",_unit,false];
+					
+					_vehicle setPylonLoadOut [_pylon, _magazineClass, true, _turretPath];
+					[QEGVAR(common,displayTextStructured), [[LSTRING(Hint_RearmedTriple), _rounds,
+							getText(configFile >> "CfgMagazines" >> _magazineClass >> "displayName"),
+							getText(configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;
+					
+				};
+        
+    } else {
+        // Fill only at most _numRounds
+        if (_turretPath isEqualTo [-1]) then {_turretPath = [];}; // Convert back to pylon turret format
+        private _currentCount = _vehicle ammoOnPylon _pylon;
+        private _newCount = ((_currentCount max 0) + _numRounds) min _rounds;
+        TRACE_2("",_pylon,_magazineClass,_newCount);
+				
+				// Hunter'z Economy Interface
+				private _HzRoundsAdded = _newCount - _currentCount;
+				private _HzCost = _HzRoundsAdded*_HzAmmoUnitCost;
+				
+				if (Hz_econ_funds < _HzCost) then {
+					
+					"Insufficient funds!" remoteExecCall ["hint",_unit,false];
+					
+				} else {
+					
+					Hz_econ_funds = Hz_econ_funds - _HzCost;
+					publicVariable "Hz_econ_funds";
+					private _hint = format ["Rearm cost: $%1",_HzCost];
+					_hint remoteExecCall ["hint",_unit,false];
+					
+					_vehicle setPylonLoadOut [_pylon, _magazineClass, true, _turretPath];
+					_vehicle setAmmoOnPylon [_pylon, _newCount];
+					[QEGVAR(common,displayTextStructured), [[LSTRING(Hint_RearmedTriple), _numRounds,
+							getText(configFile >> "CfgMagazines" >> _magazineClass >> "displayName"),
+							getText(configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;
+					
+				};
+        
+    };
+
 };
 
 private _currentRounds = 0;
