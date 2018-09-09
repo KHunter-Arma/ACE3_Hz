@@ -37,6 +37,9 @@ private _bloodVolume = _unit getVariable [QGVAR(bloodVolume), 100];
 private _bloodVolumeChange = -([_unit] call FUNC(getBloodLoss));
 
 if (!isNil {_unit getVariable QGVAR(ivBags)}) then {
+
+		_unit playMoveNow "AinjPpneMstpSnonWrflDnon";
+
     if (_bloodVolume < 100) then {
         private _bloodBags = _unit getVariable [QGVAR(ivBags), []];
         _bloodBags = _bloodBags apply {
@@ -53,11 +56,13 @@ if (!isNil {_unit getVariable QGVAR(ivBags)}) then {
         _bloodBags = _bloodBags - [[]]; // remove empty bags
         if (_bloodBags isEqualTo []) then {
             _unit setVariable [QGVAR(ivBags), nil, true]; // no bags left - clear variable (always globaly sync this)
+						_unit playMoveNow "amovppnemstpsnonwnondnon";
         } else {
             _unit setVariable [QGVAR(ivBags), _bloodBags, _syncValues];
         };
     } else {
         _unit setVariable [QGVAR(ivBags), nil, true]; // blood volume = 100% - clear variable (always globaly sync this)
+				_unit playMoveNow "amovppnemstpsnonwnondnon";
     };
 };
 
