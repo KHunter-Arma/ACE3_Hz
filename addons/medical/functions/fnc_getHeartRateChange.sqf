@@ -53,6 +53,16 @@ if (!(_unit getVariable [QGVAR(inCardiacArrest),false])) then {
     _unit setVariable [QGVAR(heartRateAdjustments), _adjustment];
 
     private _bloodVolume = _unit getVariable [QGVAR(bloodVolume), 100];
+		
+		//Hunter: Bring in some of my work on CMS from Arma 2... See if this works
+		//get target HR from current BV
+		_TargetBPh = 40*(_bloodVolume/100) + 80;
+		_TargetHR = ((log _TargetBPh) - 1.8785 - (log (_bloodVolume/100))) / 0.0026;
+		
+		_hrIncrease = _TargetHR - _heartRate;
+		
+		/*
+		
     if (_bloodVolume > 75) then {
         if (_bloodLoss > 0.0) then {
             if (_bloodLoss < 0.5) then {
@@ -83,5 +93,7 @@ if (!(_unit getVariable [QGVAR(inCardiacArrest),false])) then {
     } else {
         _hrIncrease = _hrIncrease - HEART_RATE_MODIFIER;
     };
+		
+		*/
 };
 _hrIncrease

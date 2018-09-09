@@ -80,11 +80,28 @@ if (_bloodVolume < 30) exitWith {
 };
 
 if ([_unit] call EFUNC(common,isAwake)) then {
+
+/*
     if (_bloodVolume < 60) then {
         if (random(1) > 0.9) then {
             [_unit, true, 15 + random(20)] call FUNC(setUnconscious);
         };
     };
+*/
+
+	//Hunter: Bring in some of my work on CMS from Arma 2... See if this works 
+	_bloodPressureH = ([_unit] call FUNC(getBloodPressure)) select 1;
+	
+	if (_bloodPressureH < 105) then {							
+		if ((random 1) > 0.95) then {
+			[_unit, true, 5 + random(10)] call FUNC(setUnconscious);                        
+		} else {
+			if (_bloodPressureH < 100) then {		
+				[_unit, true, 20 + random(40)] call FUNC(setUnconscious);
+			};		
+		};
+	};	
+		
 };
 
 if (GVAR(level) == 1) then {
