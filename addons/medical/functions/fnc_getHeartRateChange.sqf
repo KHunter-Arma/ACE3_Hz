@@ -61,6 +61,20 @@ if (!(_unit getVariable [QGVAR(inCardiacArrest),false])) then {
 		
 		_hrIncrease = _TargetHR - _heartRate;
 		
+		if (_hrIncrease > 1) then {
+		
+			_hrIncrease = 1;
+		
+		} else {
+		
+			if (_hrIncrease < -1) then {
+		
+				_hrIncrease = -1;
+		
+			};
+		
+		};
+		
 		/*
 		
     if (_bloodVolume > 75) then {
