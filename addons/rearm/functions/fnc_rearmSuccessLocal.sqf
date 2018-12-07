@@ -1,25 +1,25 @@
-/*
-* Author: GitHawk
-* Rearms a vehicle on the turret owner.
-*
-* Arguments:
-* 0: Vehicle <OBJECT>
-* 1: Unit <OBJECT>
-* 2: Turret Path <ARRAY>
-* 3: Number of magazines <NUMBER>
-* 4: Magazine Classname <STRING>
-* 5: Number of rounds <NUMBER>
-* 6: Pylon Index <NUMBER>
-*
-* Return Value:
-* None
-*
-* Example:
-* [vehicle, player, [-1], 2, "5000Rnd_762x51_Belt", 500, ""] call ace_rearm_fnc_rearmSuccessLocal
-*
-* Public: No
-*/
 #include "script_component.hpp"
+/*
+ * Author: GitHawk
+ * Rearms a vehicle on the turret owner.
+ *
+ * Arguments:
+ * 0: Vehicle <OBJECT>
+ * 1: Unit <OBJECT>
+ * 2: Turret Path <ARRAY>
+ * 3: Number of magazines <NUMBER>
+ * 4: Magazine Classname <STRING>
+ * 5: Number of rounds <NUMBER>
+ * 6: Pylon Index <NUMBER>
+ *
+ * Return Value:
+ * None
+ *
+ * Example:
+ * [vehicle, player, [-1], 2, "5000Rnd_762x51_Belt", 500, ""] call ace_rearm_fnc_rearmSuccessLocal
+ *
+ * Public: No
+ */
 
 params ["_vehicle", "_unit", "_turretPath", "_numMagazines", "_magazineClass", "_numRounds", "_pylon"];
 TRACE_7("rearmSuccessLocal",_vehicle,_unit,_turretPath,_numMagazines,_magazineClass,_numRounds,_pylon);

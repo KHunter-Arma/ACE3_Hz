@@ -446,12 +446,8 @@
 `ace_common`, `ace_ai`
 {% endif %}
 
-{% if include.component == "compat_adr_97" %}
-`A3_Weapons_F_Mod`
-{% endif %}
-
 {% if include.component == "compat_r3f" %}
-`r3f_armes_c`, `r3f_armes`, `r3f_acc`
+`r3f_armes_c`, `R3F_G17_addons`, `r3f_acc`
 {% endif %}
 
 {% if include.component == "compat_rh_acc" %}
