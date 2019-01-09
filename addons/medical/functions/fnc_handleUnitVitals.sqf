@@ -88,15 +88,20 @@ if ([_unit] call EFUNC(common,isAwake)) then {
     };
 */
 
-	//Hunter: Bring in some of my work on CMS from Arma 2... See if this works 
+	//Hunter: More realistic feeling of low blood pressure
+	//Prevent ragdoll (if Diwako's mod enabled) from this so you don't get Arma physx'ed while being treated...
 	_bloodPressureH = ([_unit] call FUNC(getBloodPressure)) select 1;
 	
 	if (_bloodPressureH < 105) then {							
 		if ((random 1) > 0.95) then {
-			[_unit, true, 5 + random(10)] call FUNC(setUnconscious);                        
+			diwako_ragdoll_ragdolling = false;
+			[_unit, true, 5 + random(10)] call FUNC(setUnconscious);     
+			diwako_ragdoll_ragdolling = true;
 		} else {
 			if (_bloodPressureH < 100) then {		
+				diwako_ragdoll_ragdolling = false;
 				[_unit, true, 20 + random(40)] call FUNC(setUnconscious);
+				diwako_ragdoll_ragdolling = true;
 			};		
 		};
 	};	
