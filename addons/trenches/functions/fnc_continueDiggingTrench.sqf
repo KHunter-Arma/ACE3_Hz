@@ -47,6 +47,13 @@ private _fnc_onFinish = {
     // Save progress global
     private _progress = _trench getVariable [QGVAR(progress), 0];
     _trench setVariable [QGVAR(progress), _progress, true];
+		
+		//Hunter: R3F compatibility to prevent move exploit before finishing building if moving trenches is allowed
+		if (!isnil "R3F_LOG_CFG_can_be_moved_by_player") then {
+
+			_trench setVariable ["R3F_LOG_disabled",false,true];
+
+		};
 
     // Reset animation
     [_unit, "", 1] call EFUNC(common,doAnimation);

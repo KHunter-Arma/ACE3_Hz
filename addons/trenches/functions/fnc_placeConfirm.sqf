@@ -39,6 +39,13 @@ if (isNull GVAR(trench)) exitWith {};
 deleteVehicle GVAR(trench);
 private _trench = createVehicle [GVAR(trenchClass), [0, 0, 0], [], 0, "NONE"];
 
+//Hunter: R3F compatibility to prevent move exploit before finishing building if moving trenches is allowed
+if (!isnil "R3F_LOG_CFG_can_be_moved_by_player") then {
+
+	_trench setVariable ["R3F_LOG_disabled",true,true];
+
+};
+
 GVAR(trenchPlacementData) params ["_dx", "_dy", "_offset"];
 private _basePos = GVAR(trenchPos);
 private _angle = (GVAR(digDirection) + getDir _unit);
