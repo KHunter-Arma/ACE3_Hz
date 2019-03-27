@@ -160,7 +160,7 @@ class ACE_Medical_Actions {
             callbackFailure = "";
             callbackProgress = "";
             itemConsumed = 1;
-            animationPatient = "";
+            animationPatient = "AinjPpneMstpSnonWrflDnon";
             animationPatientUnconscious = "AinjPpneMstpSnonWrflDnon_rolltoback";
             animationPatientUnconsciousExcludeOn[] = {"ainjppnemstpsnonwrfldnon"};
             animationCaller = "AinvPknlMstpSlayWrflDnon_medicOther";
@@ -312,8 +312,6 @@ class ACE_Medical_Actions {
 						treatmentTime = "30";
             callbackSuccess = QUOTE(DFUNC(treatmentAdvanced_fullHeal));
             itemConsumed = QGVAR(consumeItem_PAK);
-            animationPatient = "";
-            animationPatientUnconscious = "AinjPpneMstpSnonWrflDnon_rolltoback";
             animationPatientUnconsciousExcludeOn[] = {"ainjppnemstpsnonwrfldnon"};
             animationCaller = "AinvPknlMstpSlayWrflDnon_medicOther";
             animationCallerProne = "AinvPpneMstpSlayW[wpn]Dnon_medicOther";

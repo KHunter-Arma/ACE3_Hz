@@ -40,6 +40,23 @@ if (vehicle _caller == _caller && {!(_caller call EFUNC(common,isSwimming))}) th
 };
 _caller setVariable [QGVAR(treatmentPrevAnimCaller), nil];
 
+if (vehicle _target == _target && {!(_target call EFUNC(common,isSwimming))}) then {
+    private _lastAnim = _target getVariable [QGVAR(treatmentPrevAnimCaller), ""];
+    switch (toLower _lastAnim) do {
+        case "ainvpknlmstpslaywrfldnon_medic": {_lastAnim = "AmovPknlMstpSrasWrflDnon"};
+        case "ainvppnemstpslaywrfldnon_medic": {_lastAnim = "AmovPpneMstpSrasWrflDnon"};
+        case "ainvpknlmstpslaywnondnon_medic": {_lastAnim = "AmovPknlMstpSnonWnonDnon"};
+        case "ainvppnemstpslaywpstdnon_medic": {_lastAnim = "AinvPpneMstpSlayWpstDnon"};
+        case "ainvpknlmstpslaywpstdnon_medic": {_lastAnim = "AmovPknlMstpSrasWpstDnon"};
+				case "amovppnemstpsraswrfldnon_injured": {_lastAnim = ""};
+				case "ainjppnemstpsnonwrfldnon": {_lastAnim = ""};
+				case "ainjppnemstpsnonwrfldnon_rolltofront": {_lastAnim = ""};
+				case "ainjppnemstpsnonwrfldnon_rolltoback": {_lastAnim = ""};
+    };
+    [_target, _lastAnim, 2] call EFUNC(common,doAnimation);
+};
+_target setVariable [QGVAR(treatmentPrevAnimCaller), nil];
+
 private _weaponSelect = (_caller getVariable [QGVAR(selectedWeaponOnTreatment), []]);
 if ((_weaponSelect params [["_previousWeapon", ""]]) && {(_previousWeapon != "") && {_previousWeapon in (weapons _caller)}}) then {
     for "_index" from 0 to 299 do {

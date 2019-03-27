@@ -148,6 +148,7 @@ if (_caller != _target && {vehicle _target == _target} && {_patientAnim != ""}) 
     if (_target getVariable ["ACE_isUnconscious", false]) then {
         [_target, _patientAnim, 2, true] call EFUNC(common,doAnimation);
     } else {
+				_target setVariable [QGVAR(treatmentPrevAnimCaller), animationState _target];
         [_target, _patientAnim, 1, true] call EFUNC(common,doAnimation);
     };
 };
@@ -212,6 +213,28 @@ private _treatmentTime = if (isNumber (_config >> "treatmentTime")) then {
         [_caller, _target, _selectionName, _className] call _treatmentTimeConfig;
     };
     0;
+};
+
+if (_caller != _target) then {
+
+	if ([_caller] call ace_medical_fnc_isMedic) then {
+	
+		_treatmentTime = _treatmentTime*0.6;
+	
+	} else {
+	
+		_treatmentTime = _treatmentTime*0.8;
+	
+	};
+
+} else {
+
+	if ([_caller] call ace_medical_fnc_isMedic) then {
+	
+		_treatmentTime = _treatmentTime*0.8;
+	
+	};
+
 };
 
 // Start treatment
