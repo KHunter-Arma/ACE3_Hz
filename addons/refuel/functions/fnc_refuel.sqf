@@ -27,39 +27,50 @@ private _maxFuel = getNumber (_config >> QGVAR(fuelCapacity));
 
 // Hunter'z Economy Interface
 private _HzFuelCap = _maxFuel;
+private _HzEconRunning = !isnil "Hz_econ_funds";
 
 // Fall back to vanilla fuelCapacity value (only air and sea vehicles don't have this defined by default by us)
 // Air and sea vehicles have that value properly defined in liters, unlike ground vehicles which is is formula of (range * tested factor) - different fuel consumption system than ground vehicles
 if (_maxFuel == 0) then {
     _maxFuel = getNumber (_config >> "fuelCapacity");
-		_HzFuelCap = (configname _config) call Hz_econ_fnc_getFuelCapacity;
+		if (_HzEconRunning) then {
+			_HzFuelCap = (configname _config) call Hz_econ_fnc_getFuelCapacity;
+		};
 };
 
 private _HzInitFuel = fuel _target;
-private _HzCost = Hz_econ_fuelPrice*(1-_HzInitFuel)*_HzFuelCap;
+private _HzCost = 0;
+if (_HzEconRunning) then {
+	_HzCost = Hz_econ_fuelPrice*(1-_HzInitFuel)*_HzFuelCap;
+};
 
-if (Hz_econ_funds < _HzCost) exitWith {hint "Insufficient funds!"};
+
+if (_HzEconRunning && {Hz_econ_funds < _HzCost}) exitWith {hint "Insufficient funds!"};
 
 [{
     params ["_args", "_pfID"];
     _args params [["_source", objNull, [objNull]], ["_sink", objNull, [objNull]], ["_unit", objNull, [objNull]], ["_nozzle", objNull, [objNull]], ["_rate", 1, [0]], ["_startFuel", 0, [0]], ["_maxFuel", 0, [0]], ["_connectFromPoint", [0,0,0], [[]], 3], ["_connectToPoint", [0,0,0], [[]], 3],
-		["_HzFuelCap",0,[1]],["_HzInitFuel",0,[1]]];
+		["_HzFuelCap",0,[1]],["_HzInitFuel",0,[1]],["_HzEconRunning",false,[false]]];
 
     if !(_nozzle getVariable [QGVAR(isConnected), false]) exitWith {
         [_pfID] call CBA_fnc_removePerFrameHandler;
 				
-				[_sink,_HzFuelCap,_HzInitFuel] spawn {
+				if (_HzEconRunning) then {
 				
-					private _veh = _this select 0;
-					private _fuelCap = _this select 1;
-					private _initFuel = _this select 2;
-				
-					sleep 2;
+					[_sink,_HzFuelCap,_HzInitFuel] spawn {
 					
-					private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
-					hint format ["Refuel cost: $%1",_HzCost];
-					Hz_econ_funds = Hz_econ_funds - _HzCost;
-					publicVariable "Hz_econ_funds";
+						private _veh = _this select 0;
+						private _fuelCap = _this select 1;
+						private _initFuel = _this select 2;
+					
+						sleep 2;
+						
+						private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
+						hint format ["Refuel cost: $%1",_HzCost];
+						Hz_econ_funds = Hz_econ_funds - _HzCost;
+						publicVariable "Hz_econ_funds";
+					
+					};
 				
 				};
 				
@@ -73,18 +84,22 @@ if (Hz_econ_funds < _HzCost) exitWith {hint "Insufficient funds!"};
         _sink setVariable [QGVAR(nozzle), nil, true];
         [_pfID] call CBA_fnc_removePerFrameHandler;
 				
-				[_sink,_HzFuelCap,_HzInitFuel] spawn {
+				if (_HzEconRunning) then {
 				
-					private _veh = _this select 0;
-					private _fuelCap = _this select 1;
-					private _initFuel = _this select 2;
-				
-					sleep 2;
+					[_sink,_HzFuelCap,_HzInitFuel] spawn {
 					
-					private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
-					hint format ["Refuel cost: $%1",_HzCost];
-					Hz_econ_funds = Hz_econ_funds - _HzCost;
-					publicVariable "Hz_econ_funds";
+						private _veh = _this select 0;
+						private _fuelCap = _this select 1;
+						private _initFuel = _this select 2;
+					
+						sleep 2;
+						
+						private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
+						hint format ["Refuel cost: $%1",_HzCost];
+						Hz_econ_funds = Hz_econ_funds - _HzCost;
+						publicVariable "Hz_econ_funds";
+					
+					};
 				
 				};
     };
@@ -99,21 +114,26 @@ if (Hz_econ_funds < _HzCost) exitWith {hint "Insufficient funds!"};
         _nozzle setVariable [QGVAR(sink), nil, true];
         _sink setVariable [QGVAR(nozzle), nil, true];
         [_pfID] call CBA_fnc_removePerFrameHandler;
+								
+				if (_HzEconRunning) then {
 				
-				[_sink,_HzFuelCap,_HzInitFuel] spawn {
-				
-					private _veh = _this select 0;
-					private _fuelCap = _this select 1;
-					private _initFuel = _this select 2;
-				
-					sleep 2;
+					[_sink,_HzFuelCap,_HzInitFuel] spawn {
 					
-					private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
-					hint format ["Refuel cost: $%1",_HzCost];
-					Hz_econ_funds = Hz_econ_funds - _HzCost;
-					publicVariable "Hz_econ_funds";
+						private _veh = _this select 0;
+						private _fuelCap = _this select 1;
+						private _initFuel = _this select 2;
+					
+						sleep 2;
+						
+						private _HzCost = ((fuel _veh) - _initFuel)*_fuelCap*Hz_econ_fuelPrice;
+						hint format ["Refuel cost: $%1",_HzCost];
+						Hz_econ_funds = Hz_econ_funds - _HzCost;
+						publicVariable "Hz_econ_funds";
+					
+					};
 				
 				};
+				
     };
 
     private _finished = false;
@@ -170,5 +190,6 @@ if (Hz_econ_funds < _HzCost) exitWith {hint "Insufficient funds!"};
     _nozzle getVariable [QGVAR(attachPos), [0,0,0]],
     _connectToPoint,
 		_HzFuelCap,
-		_HzInitFuel
+		_HzInitFuel,
+		_HzEconRunning
 ]] call CBA_fnc_addPerFrameHandler;

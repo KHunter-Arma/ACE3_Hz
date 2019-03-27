@@ -21,6 +21,7 @@ params ["_unit", "_vehicle", "_hitPointIndex"];
 TRACE_3("params",_unit,_vehicle,_hitPointIndex);
 
 // Hunter'z Economy Interface
+private _HzEconRunning = !isnil "Hz_econ_funds";
 private _HzInitHitpointsDamage = (getAllHitPointsDamage _vehicle) select 2;
 private _count = count _HzInitHitpointsDamage;
 private _HzInitDamage = 0;
@@ -31,10 +32,14 @@ private _HzInitDamage = 0;
 } foreach _HzInitHitpointsDamage;
 _HzInitDamage = _HzInitDamage / _count;
 
-private _HzCost = (typeof _vehicle) call Hz_econ_vehStore_fnc_getVehCost;
+
+private _HzCost = 0;
+if (_HzEconRunning) then {
+	_HzCost = (typeof _vehicle) call Hz_econ_vehStore_fnc_getVehCost;
+};
 if (_HzCost == -1) exitwith {hint "No spare parts available for this vehicle!"};
 _HzCost = _HzCost *_HzInitDamage;
-if (Hz_econ_funds < _HzCost) exitwith {hint "Insufficient funds for repairs!"};
+if (_HzEconRunning && {Hz_econ_funds < _HzCost}) exitwith {hint "Insufficient funds for repairs!"};
 
 private _postRepairDamageMin = [_unit] call FUNC(getPostRepairDamage);
 
@@ -92,26 +97,30 @@ if (GVAR(DisplayTextOnRepair)) then {
 };
 
 	// Hunter'z Economy Interface
-	[_vehicle,_HzInitDamage] spawn {
+	if (_HzEconRunning) then {
 	
-		_vehicle = _this select 0;
-		_HzInitDamage = _this select 1;
+		[_vehicle,_HzInitDamage] spawn {
 		
-		sleep 2;
-		
-		_HzEndHitpointsDamage = (getAllHitPointsDamage _vehicle) select 2;
-		_count = count _HzEndHitpointsDamage;
-		_HzEndDamage = 0;
-		{
+			_vehicle = _this select 0;
+			_HzInitDamage = _this select 1;
+			
+			sleep 2;
+			
+			_HzEndHitpointsDamage = (getAllHitPointsDamage _vehicle) select 2;
+			_count = count _HzEndHitpointsDamage;
+			_HzEndDamage = 0;
+			{
 
-			_HzEndDamage = _HzEndDamage + _x;
+				_HzEndDamage = _HzEndDamage + _x;
 
-		} foreach _HzEndHitpointsDamage;
-		_HzEndDamage = _HzEndDamage / _count;
+			} foreach _HzEndHitpointsDamage;
+			_HzEndDamage = _HzEndDamage / _count;
+			
+			_HzCost = (_HzInitDamage - _HzEndDamage)* ((typeof _vehicle) call Hz_econ_vehStore_fnc_getVehCost);
+			Hz_econ_funds = Hz_econ_funds - _HzCost;
+			publicVariable "Hz_econ_funds";
+			hint format ["Repair cost: $%1",_HzCost];
 		
-		_HzCost = (_HzInitDamage - _HzEndDamage)* ((typeof _vehicle) call Hz_econ_vehStore_fnc_getVehCost);
-		Hz_econ_funds = Hz_econ_funds - _HzCost;
-		publicVariable "Hz_econ_funds";
-		hint format ["Repair cost: $%1",_HzCost];
+		};
 	
 	};
