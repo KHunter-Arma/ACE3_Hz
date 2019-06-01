@@ -20,29 +20,49 @@
  */
 
 params ["_args", "_elapsedTime", "_totalTime", "_errorCode"];
-_args params ["_magazineClassname", "_lastAmmoCount"];
+_args params ["_magazineClassname", "_lastAmmoCount","_simEvents","_totalNumOfMags"];
 
 private _fullMagazineCount = getNumber (configFile >> "CfgMagazines" >> _magazineClassname >> "count");
-
-// Don't show anything if player can't interact
-if (!([ACE_player, objNull, ["isNotInside", "isNotSitting", "isNotSwimming"]] call EFUNC(common,canInteractWith))) exitWith {};
 
 // Count mags
 private _fullMags = 0;
 private _partialMags = 0;
 private _bulletsLeft = 0;
+private _newMagsCount = 0;
 {
     _x params ["_classname", "_count"];
+		
+		if (_classname == _magazineClassname) then {
 
-    if (_classname == _magazineClassname && {_count > 0}) then {
-        if (_count == _fullMagazineCount) then {
-            _fullMags = _fullMags + 1;
-        } else {
-            _partialMags = _partialMags + 1;
-            _bulletsLeft = _count;
-        };
-    };
+			_newMagsCount = _newMagsCount + 1;
+
+			if (_count > 0) then {
+					if (_count == _fullMagazineCount) then {
+							_fullMags = _fullMags + 1;
+					} else {
+							_partialMags = _partialMags + 1;
+							_bulletsLeft = _count;
+					};
+			};
+		
+		};
 } forEach (magazinesAmmoFull ACE_player);
+
+//add empty magazines
+private _magsMissing = _totalNumOfMags - _newMagsCount;
+
+if (_magsMissing > 0) then {
+
+	for "_i" from 1 to _magsMissing do {
+	
+		ACE_player addMagazine [_magazineClassname,0];
+	
+	};
+	
+};
+
+// Don't show anything if player can't interact
+if (!([ACE_player, objNull, ["isNotInside", "isNotSitting", "isNotSwimming"]] call EFUNC(common,canInteractWith))) exitWith {};
 
 private _structuredOutputText = if (_errorCode == 0) then {
     private _repackedMagsText = format [localize LSTRING(RepackedMagazinesDetail), _fullMags, _bulletsLeft];

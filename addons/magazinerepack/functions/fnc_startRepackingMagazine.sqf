@@ -34,9 +34,15 @@ if !([_player, objNull, ["isNotInside", "isNotSwimming", "isNotSitting"]] call E
 [_player] call EFUNC(common,goKneeling);
 
 private _startingAmmoCounts = [];
+private _totalNumOfMags = 0;
 {
     _x params ["_xClassname", "_xCount", "_xLoaded", "_xType"];
-    if (_xClassname == _magazineClassname && {_xCount != _fullMagazineCount && {_xCount > 0}}) then {
+		
+		if (_xClassname == _magazineClassname) then {
+		
+			_totalNumOfMags = _totalNumOfMags + 1;
+			
+			if ((_xCount != _fullMagazineCount) && {_xCount > 0}) then {
         if (_xLoaded) then {
             //Try to Remove from weapon and add to inventory, otherwise ignore
             if (_player canAdd _magazineClassname) then {
@@ -53,6 +59,9 @@ private _startingAmmoCounts = [];
             _startingAmmoCounts pushBack _xCount;
         };
     };
+		
+	};	
+    
 } forEach (magazinesAmmoFull _player);
 
 if (count _startingAmmoCounts < 2) exitWith {ERROR("Not Enough Mags to Repack");};
@@ -62,7 +71,7 @@ private _totalTime = _simEvents select (count _simEvents - 1) select 0;
 
 [
     _totalTime,
-    [_magazineClassname, _startingAmmoCounts, _simEvents],
+    [_magazineClassname, _startingAmmoCounts, _simEvents,_totalNumOfMags],
     {_this call FUNC(magazineRepackFinish)},
     {_this call FUNC(magazineRepackFinish)},
     (localize LSTRING(RepackingMagazine)),
