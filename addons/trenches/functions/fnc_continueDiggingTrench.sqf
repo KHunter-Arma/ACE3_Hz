@@ -70,7 +70,7 @@ private _fnc_onFailure = {
     // Reset animation
     [_unit, "", 1] call EFUNC(common,doAnimation);
 };
-[(_digTimeLeft + 0.5), [_unit, _trench], _fnc_onFinish, _fnc_onFailure, localize LSTRING(DiggingTrench)] call EFUNC(common,progressBar);
+[(_digTimeLeft + 0.5), [_unit, _trench], _fnc_onFinish, _fnc_onFailure, localize LSTRING(DiggingTrench),{[player] call ace_trenches_fnc_canDigTrench}] call EFUNC(common,progressBar);
 
 if(_actualProgress == 0) then {
     [_unit, _trench, _trenchId, _basePos vectorDiff [0, 0, 1.0], _vecDirAndUp, _actualProgress] call FUNC(setTrenchPlacement);
