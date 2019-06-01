@@ -215,29 +215,37 @@ private _treatmentTime = if (isNumber (_config >> "treatmentTime")) then {
     0;
 };
 
-if (_caller != _target) then {
+if ((getText (_config >> "category")) == "bandage") then {
 
-	if ([_caller] call ace_medical_fnc_isMedic) then {
-	
-		_treatmentTime = _treatmentTime*0.6;
-	
+	if (_caller != _target) then {
+
+		if ([_caller] call ace_medical_fnc_isMedic) then {
+		
+			_treatmentTime = _treatmentTime*0.6;
+		
+		} else {
+		
+			_treatmentTime = _treatmentTime*0.8;
+		
+		};
+
 	} else {
-	
-		_treatmentTime = _treatmentTime*0.8;
-	
-	};
 
-} else {
+		if ([_caller] call ace_medical_fnc_isMedic) then {
+		
+			_treatmentTime = _treatmentTime*0.8;
+		
+		};
 
-	if ([_caller] call ace_medical_fnc_isMedic) then {
-	
-		_treatmentTime = _treatmentTime*0.8;
-	
 	};
 
 };
 
 // Start treatment
+if (_caller != _target) then {
+	_target setVariable [QGVAR(isBeingTreatedByCount),(_target getVariable [QGVAR(isBeingTreatedByCount),0]) + 1,true];
+};
+
 [
     _treatmentTime,
     [_caller, _target, _selectionName, _className, _items, _usersOfItems],

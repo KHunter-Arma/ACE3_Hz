@@ -150,7 +150,7 @@ class ACE_Medical_Actions {
             // What is the level of medical skill required for this treatment action? 0 = all soldiers, 1 = medic, 2 = doctor
             requiredMedic = 0;
             // The time it takes for a treatment action to complete. Time is in seconds.
-            treatmentTime = 18;
+            treatmentTime = 22;
             // Item required for the action. Leave empty for no item required.
             items[] = {"ACE_fieldDressing"};
             condition = "";
@@ -199,7 +199,7 @@ class ACE_Medical_Actions {
             displayNameProgress = CSTRING(Applying_Tourniquet);
             allowedSelections[] = {"hand_l", "hand_r", "leg_l", "leg_r"};
             items[] = {"ACE_tourniquet"};
-            treatmentTime = 18;
+            treatmentTime = 22;
             callbackSuccess = QUOTE(DFUNC(treatmentTourniquet));
             condition = QUOTE(!([ARR_2(_this select 1, _this select 2)] call FUNC(hasTourniquetAppliedTo)));
             litter[] = {};
@@ -357,7 +357,7 @@ class ACE_Medical_Actions {
         class RemoveTourniquet: Tourniquet {
             displayName = CSTRING(Actions_RemoveTourniquet);
             items[] = {};
-            treatmentTime = 8;
+            treatmentTime = 12;
             callbackSuccess = QUOTE(DFUNC(actionRemoveTourniquet));
             condition = QUOTE([ARR_2(_this select 1, _this select 2)] call FUNC(hasTourniquetAppliedTo));
             displayNameProgress = CSTRING(RemovingTourniquet);

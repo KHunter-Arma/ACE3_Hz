@@ -24,6 +24,8 @@ if !(_target isKindOf "CAManBase") exitWith { false };
 
 if (!isNil {_caller getVariable QGVAR(ivBags)}) exitWith {false};
 
+if ((_caller getVariable [QGVAR(isBeingTreatedByCount),0]) > 0) exitWith {false};
+
 private _config = (ConfigFile >> "ACE_Medical_Actions" >> (["Basic", "Advanced"] select (GVAR(level)>=2)) >> _className);
 
 if !(isClass _config) exitwith {false};

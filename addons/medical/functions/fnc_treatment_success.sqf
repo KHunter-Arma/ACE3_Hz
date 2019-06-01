@@ -106,4 +106,8 @@ if (!(_target getVariable [QGVAR(addedToUnitLoop),false])) then {
     [_target] call FUNC(addVitalLoop);
 };
 
+if (_caller != _target) then {
+	_target setVariable [QGVAR(isBeingTreatedByCount),(_target getVariable [QGVAR(isBeingTreatedByCount),0]) - 1,true];
+};
+
 ["ace_treatmentSucceded", [_caller, _target, _selectionName, _className]] call CBA_fnc_localEvent;

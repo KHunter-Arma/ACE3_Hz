@@ -88,4 +88,8 @@ _callback = if (isNil _callback) then {
 };
 if (!(_callback isEqualType {})) then {_callback = {TRACE_1("callback was NOT code",_callback)};};
 
+if (_caller != _target) then {
+	_target setVariable [QGVAR(isBeingTreatedByCount),(_target getVariable [QGVAR(isBeingTreatedByCount),0]) - 1,true];
+};
+
 _args call _callback;
