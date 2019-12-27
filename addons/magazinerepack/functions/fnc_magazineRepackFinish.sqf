@@ -50,15 +50,24 @@ private _newMagsCount = 0;
 
 //add empty magazines
 private _magsMissing = _totalNumOfMags - _newMagsCount;
-
 if (_magsMissing > 0) then {
-
-	for "_i" from 1 to _magsMissing do {
-	
-		ACE_player addMagazine [_magazineClassname,0];
-	
-	};
-	
+	for "_i" from 1 to _magsMissing do {		
+		if (ACE_player canAdd _magazineClassname) then {
+			 ACE_player addMagazine [_magazineClassname,0];
+		} else {		
+			switch (true) do {			
+				case (_magazineClassname in (getArray (configfile >> "cfgWeapons" >> primaryWeapon ACE_player >> "magazines"))) : {				
+					ACE_player addWeaponItem [primaryWeapon ACE_player, [_magazineClassname,0]];				
+				};				
+				case (_magazineClassname in (getArray (configfile >> "cfgWeapons" >> secondaryWeapon ACE_player >> "magazines"))) : {				
+					ACE_player addWeaponItem [secondaryWeapon ACE_player, [_magazineClassname,0]];				
+				};				
+				case (_magazineClassname in (getArray (configfile >> "cfgWeapons" >> handgunWeapon ACE_player >> "magazines"))) : {				
+					ACE_player addWeaponItem [handgunWeapon ACE_player, [_magazineClassname,0]];				
+				};						
+			};						
+		};	
+	};	
 };
 
 // Don't show anything if player can't interact
