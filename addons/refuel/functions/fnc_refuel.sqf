@@ -33,12 +33,9 @@ private _HzEconRunning = !isnil "Hz_econ_funds";
 // Air and sea vehicles have that value properly defined in liters, unlike ground vehicles which is is formula of (range * tested factor) - different fuel consumption system than ground vehicles
 if (_maxFuel == 0) then {
     _maxFuel = getNumber (_config >> "fuelCapacity");
-		if (_HzEconRunning) then {
-			_HzFuelCap = (configname _config) call Hz_econ_fnc_getFuelCapacity;
-		};
 };
 
-private _HzInitFuel = fuel _target;
+private _HzInitFuel = fuel _sink;
 private _HzCost = 0;
 if (_HzEconRunning) then {
 	_HzCost = Hz_econ_fuelPrice*(1-_HzInitFuel)*_HzFuelCap;
