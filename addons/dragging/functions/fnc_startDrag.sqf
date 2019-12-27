@@ -28,6 +28,9 @@ if (!GETVAR(_target,GVAR(ignoreWeightDrag),false) && {
     [localize LSTRING(UnableToDrag)] call EFUNC(common,displayTextStructured);
 };
 
+// dragging dead units isn't possible because Arma 3 will force ragdoll them...
+if (!alive _target) exitWith {};
+
 // add a primary weapon if the unit has none.
 // @todo prevent opening inventory when equipped with a fake weapon
 if (primaryWeapon _unit isEqualto "") then {

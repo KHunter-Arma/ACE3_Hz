@@ -28,6 +28,9 @@ if (!GETVAR(_target,GVAR(ignoreWeightCarry),false) && {
     [localize LSTRING(UnableToDrag)] call EFUNC(common,displayTextStructured);
 };
 
+// carrying dead units isn't possible because Arma 3 will force ragdoll them...
+if (!alive _target) exitWith {};
+
 private _timer = CBA_missionTime + 5;
 
 // handle objects vs persons
