@@ -144,7 +144,7 @@ if (_target getVariable ["ACE_isUnconscious", false] && GVAR(allowUnconsciousAni
     };
 };
 
-if (_caller != _target && {vehicle _target == _target} && {_patientAnim != ""}) then {
+if ((alive _target) && {_caller != _target} && {vehicle _target == _target} && {_patientAnim != ""}) then {
     if (_target getVariable ["ACE_isUnconscious", false]) then {
         [_target, _patientAnim, 2, true] call EFUNC(common,doAnimation);
     } else {

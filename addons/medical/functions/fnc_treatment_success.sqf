@@ -40,7 +40,7 @@ if (vehicle _caller == _caller && {!(_caller call EFUNC(common,isSwimming))}) th
 };
 _caller setVariable [QGVAR(treatmentPrevAnimCaller), nil];
 
-if (vehicle _target == _target && {!(_target call EFUNC(common,isSwimming))}) then {
+if (alive _target && {vehicle _target == _target} && {!(_target call EFUNC(common,isSwimming))}) then {
     private _lastAnim = _target getVariable [QGVAR(treatmentPrevAnimCaller), ""];
     switch (toLower _lastAnim) do {
         case "ainvpknlmstpslaywrfldnon_medic": {_lastAnim = "AmovPknlMstpSrasWrflDnon"};
