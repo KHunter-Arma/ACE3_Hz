@@ -32,6 +32,8 @@ _unit setVariable  [QGVAR(bloodVolume), _bloodVolume, _syncValues];
 
 TRACE_3("ACE_DEBUG",_bloodVolume,_syncValues,_unit);
 // Set variables for synchronizing information across the net
+// Hunter: This variable is silly and has no real purpose
+/*
 if (_bloodVolume < 100) then {
     if (_bloodVolume < 90) then {
         TRACE_4("ACE_DEBUG",_bloodVolume,_unit getVariable QGVAR(hasLostBlood),_syncValues,_unit);
@@ -50,6 +52,7 @@ if (_bloodVolume < 100) then {
         _unit setVariable [QGVAR(hasLostBlood), 0, true];
     };
 };
+*/
 
 TRACE_3("ACE_DEBUG",[_unit] call FUNC(getBloodLoss),_unit getVariable QGVAR(isBleeding),_unit);
 if (([_unit] call FUNC(getBloodLoss)) > 0) then {
