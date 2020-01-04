@@ -147,6 +147,19 @@ switch (true) do {
     case (_woundBloodLoss > BLOOD_LOSS_KNOCK_OUT_THRESHOLD): {
         [QEGVAR(medical,CriticalVitals), _unit] call CBA_fnc_localEvent;
     };
+		case (_bloodPressureH < 105): {		
+			if ((random 1) > 0.95) then {
+				diwako_ragdoll_ragdolling = false;
+				[_unit, true, 5 + (random 10), true] call FUNC(setUnconscious);
+				diwako_ragdoll_ragdolling = true;				
+			} else {
+				if (_bloodPressureH < 100) then {		
+					diwako_ragdoll_ragdolling = false;
+					[_unit, true, 20 + (random 40), true] call FUNC(setUnconscious);
+					diwako_ragdoll_ragdolling = true;
+				};		
+			};			
+    };
     case (_woundBloodLoss > 0): {
         [QEGVAR(medical,LoweredVitals), _unit] call CBA_fnc_localEvent;
     };

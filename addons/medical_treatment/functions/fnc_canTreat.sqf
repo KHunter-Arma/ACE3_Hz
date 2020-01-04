@@ -23,6 +23,8 @@ params ["_medic", "_patient", "_bodyPart", "_classname"];
 private _config = configFile >> QGVAR(actions) >> _classname;
 
 isClass _config
+&& {isNil {_medic getVariable QEGVAR(medical,ivBags)}}
+&& {(_medic getVariable [QEGVAR(medical,isBeingTreatedByCount),0]) == 0}
 && {_patient isKindOf "CAManBase"}
 && {_medic != _patient || {GET_NUMBER_ENTRY(_config >> "allowSelfTreatment") == 1}}
 && {[_medic, GET_NUMBER_ENTRY(_config >> "medicRequired")] call FUNC(isMedic)}

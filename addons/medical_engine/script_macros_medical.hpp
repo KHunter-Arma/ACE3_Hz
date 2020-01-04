@@ -103,18 +103,18 @@
 #define EMPTY_WOUND [-1, -1, 0, 0, 0]
 
 // Base time to bandage each wound category
-#define BANDAGE_TIME_S 4
-#define BANDAGE_TIME_M 6
-#define BANDAGE_TIME_L 8
-#define BANDAGE_TIME_MOD_MEDIC -2
-#define BANDAGE_TIME_MOD_SELF 4
+#define BANDAGE_TIME_S 15
+#define BANDAGE_TIME_M 18
+#define BANDAGE_TIME_L 20
+#define BANDAGE_TIME_MOD_MEDIC 0.6
+#define BANDAGE_TIME_MOD_SELF 1.25
 
 #define DEFAULT_BANDAGE_REOPENING_CHANCE 0.1
 #define DEFAULT_BANDAGE_REOPENING_MIN_DELAY 120
 #define DEFAULT_BANDAGE_REOPENING_MAX_DELAY 200
 
 // Time it takes to stitch one wound
-#define WOUND_STITCH_TIME 5
+#define WOUND_STITCH_TIME 60
 
 #define DEFAULT_TOURNIQUET_VALUES [0,0,0,0,0,0]
 
@@ -159,6 +159,8 @@
 #define VAR_IN_PAIN           QEGVAR(medical,inPain)
 #define VAR_TOURNIQUET        QEGVAR(medical,tourniquets)
 #define VAR_FRACTURES         QEGVAR(medical,fractures)
+// This variable counts and tracks whether player is being treated
+#define VAR_TREATED_BY_COUNT	QEGVAR(medical,isBeingTreatedByCount)
 
 // - Unit Functions ---------------------------------------------------
 // Retrieval macros for common unit values

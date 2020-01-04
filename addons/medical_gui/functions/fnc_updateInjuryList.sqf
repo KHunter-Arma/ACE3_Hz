@@ -39,6 +39,7 @@ if (IS_BLEEDING(_target)) then {
 };
 
 // Give a qualitative description of the blood volume lost
+/*
 switch (GET_HEMORRHAGE(_target)) do {
     case 1: {
         _entries pushBack [localize LSTRING(Lost_Blood1), [1, 0, 0, 1]];
@@ -53,6 +54,7 @@ switch (GET_HEMORRHAGE(_target)) do {
         _entries pushBack [localize LSTRING(Lost_Blood4), [1, 0, 0, 1]];
     };
 };
+*/
 
 // Indicate if a tourniquet is applied
 if (HAS_TOURNIQUET_APPLIED_ON(_target,_selectionN)) then {

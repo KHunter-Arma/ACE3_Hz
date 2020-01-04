@@ -59,6 +59,7 @@ if (_isRespawn) then {
     _unit setVariable [VAR_TOURNIQUET, DEFAULT_TOURNIQUET_VALUES, true];
     _unit setVariable [QEGVAR(medical,occludedMedications), nil, true]; // Delayed Medications (from tourniquets)
     _unit setVariable [QEGVAR(medical,ivBags), nil, true];
+		_unit setVariable [VAR_TREATED_BY_COUNT, 0, true];
 
     // Update wound bleeding
     [_unit] call EFUNC(medical_status,updateWoundBloodLoss);

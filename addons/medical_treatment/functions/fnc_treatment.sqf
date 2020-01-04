@@ -61,6 +61,17 @@ private _medicAnim = if (_medic isEqualTo _patient) then {
     getText (_config >> ["animationMedic", "animationMedicProne"] select (stance _medic == "PRONE"));
 };
 
+// Set patient animation -- experimental
+if (_medic != _patient) then {
+	_patient setVariable [QEGVAR(medical,isBeingTreatedByCount),(_patient getVariable [QEGVAR(medical,isBeingTreatedByCount),0]) + 1,true];
+	if ((alive _patient) && {!(_patient getVariable ["ACE_isUnconscious", false])} && {(vehicle _patient) == _patient}) then {	
+		private _category = getText (_config >> "category");
+		if (!(_category in ["examine","medication"])) then {	
+			[_patient, "AinjPpneMstpSnonWrflDnon", 1] call EFUNC(common,doAnimation);
+		};
+	};
+};
+
 _medic setVariable [QGVAR(selectedWeaponOnTreatment), weaponState _medic];
 
 // Adjust animation based on the current weapon of the medic

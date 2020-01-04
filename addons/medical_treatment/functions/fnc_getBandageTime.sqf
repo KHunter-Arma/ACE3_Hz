@@ -43,12 +43,12 @@ if (GVAR(advancedBandages)) then { // basicBandage will have a very high effecti
 
 // Medics are more practised at applying bandages
 if ([_medic] call FUNC(isMedic)) then {
-    _bandageTime = _bandageTime + BANDAGE_TIME_MOD_MEDIC;
+    _bandageTime = _bandageTime * BANDAGE_TIME_MOD_MEDIC;
 };
 
 // Bandaging yourself requires more work
 if (_medic == _patient) then {
-    _bandageTime = _bandageTime + BANDAGE_TIME_MOD_SELF;
+    _bandageTime = _bandageTime * BANDAGE_TIME_MOD_SELF;
 };
 
 TRACE_1("",_bandageTime);

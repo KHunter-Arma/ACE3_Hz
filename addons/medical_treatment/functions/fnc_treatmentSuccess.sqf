@@ -39,6 +39,15 @@ if (!isNil QEGVAR(advanced_fatigue,setAnimExclusions)) then {
     EGVAR(advanced_fatigue,setAnimExclusions) deleteAt (EGVAR(advanced_fatigue,setAnimExclusions) find QUOTE(ADDON));
 };
 
+// Reset patient animation -- experimental
+if ((alive _patient) && {!(_patient getVariable ["ACE_isUnconscious", false])} && {(vehicle _patient) == _patient} && {!(_patient call EFUNC(common,isSwimming))}) then {
+	[_patient, "AinvPpneMstpSlayWpstDnon", 2] call EFUNC(common,doAnimation);
+};
+
+if (_patient != _medic) then {
+	_patient setVariable [QEGVAR(medical,isBeingTreatedByCount),(_patient getVariable [QEGVAR(medical,isBeingTreatedByCount),0]) - 1,true];
+};
+
 // Call treatment specific success callback
 GET_FUNCTION(_callbackSuccess,configFile >> QGVAR(actions) >> _classname >> "callbackSuccess");
 

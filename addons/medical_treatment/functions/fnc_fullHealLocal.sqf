@@ -33,29 +33,14 @@ if IN_CRDC_ARRST(_patient) then {
 };
 
 _patient setVariable [VAR_PAIN, 0, true];
-_patient setVariable [VAR_BLOOD_VOL, DEFAULT_BLOOD_VOLUME, true];
-
-// Tourniquets
-_patient setVariable [VAR_TOURNIQUET, DEFAULT_TOURNIQUET_VALUES, true];
-_patient setVariable [QGVAR(occludedMedications), nil, true];
 
 // Wounds and Injuries
-_patient setVariable [VAR_OPEN_WOUNDS, [], true];
-_patient setVariable [VAR_BANDAGED_WOUNDS, [], true];
 _patient setVariable [VAR_STITCHED_WOUNDS, [], true];
 _patient setVariable [QEGVAR(medical,isLimping), false, true];
 _patient setVariable [VAR_FRACTURES, DEFAULT_FRACTURE_VALUES, true];
 
-// Update wound bleeding
-[_patient] call EFUNC(medical_status,updateWoundBloodLoss);
-
 // Vitals
-_patient setVariable [VAR_HEART_RATE, DEFAULT_HEART_RATE, true];
-_patient setVariable [VAR_BLOOD_PRESS, [80, 120], true];
 _patient setVariable [VAR_PERIPH_RES, DEFAULT_PERIPH_RES, true];
-
-// IVs
-_patient setVariable [QEGVAR(medical,ivBags), nil, true];
 
 // Damage storage
 _patient setVariable [QEGVAR(medical,bodyPartDamage), [0,0,0,0,0,0], true];
@@ -73,15 +58,8 @@ if IS_UNCONSCIOUS(_patient) then {
 // Generic medical admin
 // _patient setVariable [VAR_CRDC_ARRST, false, true]; // this should be set by statemachine transition
 // _patient setVariable [VAR_UNCON, false, true]; // this should be set by statemachine transition
-_patient setVariable [VAR_HEMORRHAGE, 0, true];
 _patient setVariable [VAR_IN_PAIN, false, true];
 _patient setVariable [VAR_PAIN_SUPP, 0, true];
-
-// Medication
-_patient setVariable [VAR_MEDICATIONS, [], true];
-
-// Reset triage card since medication is reset
-_patient setVariable [QEGVAR(medical,triageCard), [], true];
 
 [_patient] call EFUNC(medical_engine,updateDamageEffects);
 

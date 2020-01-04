@@ -22,6 +22,11 @@ params ["_unit", "_deltaT", "_syncValues"];
 private _bloodVolumeChange = -_deltaT * GET_BLOOD_LOSS(_unit);
 
 if (!isNil {_unit getVariable QEGVAR(medical,ivBags)}) then {
+
+		if (!(_unit call EFUNC(medical_status,isBeingCarried)) && {!(_unit call EFUNC(medical_status,isBeingDragged))}) then {
+			_unit playMoveNow "AinjPpneMstpSnonWrflDnon"; //set animation
+		};
+
     private _bloodBags = _unit getVariable [QEGVAR(medical,ivBags), []];
     private _tourniquets = GET_TOURNIQUETS(_unit);
 
@@ -45,6 +50,11 @@ if (!isNil {_unit getVariable QEGVAR(medical,ivBags)}) then {
 
     if (_bloodBags isEqualTo []) then {
         _unit setVariable [QEGVAR(medical,ivBags), nil, true]; // no bags left - clear variable (always globaly sync this)
+				
+				if (!(_unit call EFUNC(medical_status,isBeingCarried)) && {!(_unit call EFUNC(medical_status,isBeingDragged))}) then {
+					_unit playMoveNow "amovppnemstpsnonwnondnon"; // reset animation
+				};		
+				
     } else {
         _unit setVariable [QEGVAR(medical,ivBags), _bloodBags, _syncValues];
     };
