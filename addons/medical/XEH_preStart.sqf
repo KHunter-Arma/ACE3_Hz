@@ -2,4 +2,4 @@
 
 #include "XEH_PREP.hpp"
 
-[false] call compile preprocessFileLineNumbers QPATHTOF(dev\test_hitpointConfigs.sqf);
+//[false] call compile preprocessFileLineNumbers QPATHTOF(dev\test_hitpointConfigs.sqf);
