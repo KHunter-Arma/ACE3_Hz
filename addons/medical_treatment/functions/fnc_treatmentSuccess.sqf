@@ -40,8 +40,8 @@ if (!isNil QEGVAR(advanced_fatigue,setAnimExclusions)) then {
 };
 
 // Reset patient animation -- experimental
-if ((alive _patient) && {!(_patient getVariable ["ACE_isUnconscious", false])} && {(vehicle _patient) == _patient} && {!(_patient call EFUNC(common,isSwimming))}) then {
-	[_patient, "AinvPpneMstpSlayWpstDnon", 2] call EFUNC(common,doAnimation);
+if ((alive _patient) && {_patient != _medic} && {!(_patient getVariable ["ACE_isUnconscious", false])} && {(vehicle _patient) == _patient} && {!(_patient call EFUNC(common,isSwimming))}) then {
+	[_patient, "amovppnemstpsnonwnondnon", 2] call EFUNC(common,doAnimation);
 };
 
 if (_patient != _medic) then {
