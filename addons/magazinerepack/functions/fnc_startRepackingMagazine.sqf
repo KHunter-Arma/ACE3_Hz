@@ -64,6 +64,21 @@ private _totalNumOfMags = 0;
     
 } forEach (magazinesAmmoFull _player);
 
+//only this command can return empty magazines (except ones that are loaded in a weapon - they will be returned above)
+private _containers = [uniformContainer _player, vestContainer _player, backpackContainer _player] select {!isnull _x};
+{
+	{
+		 _x params ["_xClassname", "_xCount"];
+		
+			if ((_xClassname == _magazineClassname) && {_xCount == 0}) then {
+			
+				_totalNumOfMags = _totalNumOfMags + 1;
+							
+		};
+	} foreach magazinesAmmoCargo _x;
+} foreach _containers;
+
+
 if (count _startingAmmoCounts < 2) exitWith {ERROR("Not Enough Mags to Repack");};
 
 private _simEvents = [_fullMagazineCount, _startingAmmoCounts, _isBelt] call FUNC(simulateRepackEvents);
