@@ -118,8 +118,8 @@ class GVAR(actions) {
         category = "medication";
         items[] = {"ACE_morphine"};
         condition = "";
+				medicRequired = QGVAR(medicEpinephrine);
         treatmentTime = 11;
-				requiredMedic = 1;
         callbackSuccess = QFUNC(medication);
         animationMedic = "AinvPknlMstpSnonWnonDnon_medic1";
         sounds[] = {{QPATHTO_R(sounds\Inject.ogg),1,1,50}};
@@ -134,8 +134,7 @@ class GVAR(actions) {
     };
     class Epinephrine: Morphine {
         displayName = CSTRING(Inject_Epinephrine);
-        displayNameProgress = CSTRING(Injecting_Epinephrine);
-        medicRequired = QGVAR(medicEpinephrine);
+        displayNameProgress = CSTRING(Injecting_Epinephrine);        
         items[] = {"ACE_epinephrine"};
         treatmentLocations = QGVAR(locationEpinephrine);
         litter[] = {{"ACE_MedicalLitter_epinephrine"}};
@@ -225,7 +224,7 @@ class GVAR(actions) {
     };
     class CheckBloodPressure: CheckPulse {
 				treatmentTime = 20;
-				requiredMedic = 1;
+				medicRequired = 1;
         displayName = CSTRING(Actions_CheckBloodPressure);
         displayNameProgress = CSTRING(Check_Bloodpressure_Content);
         allowedSelections[] = {"LeftArm", "RightArm", "LeftLeg", "RightLeg"};
