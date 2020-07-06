@@ -38,6 +38,7 @@ if (isNull GVAR(trench)) exitWith {};
 
 deleteVehicle GVAR(trench);
 private _trench = createVehicle [GVAR(trenchClass), [0, 0, 0], [], 0, "NONE"];
+_trench setVariable [QGVAR(progress), 0, true];
 
 //Hunter: R3F compatibility to prevent move exploit before finishing building if moving trenches is allowed
 if (!isnil "R3F_LOG_CFG_can_be_moved_by_player") then {
