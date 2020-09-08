@@ -4,7 +4,7 @@
     "TIME", 
     [LSTRING(SmallEnvelopeDigDuration_DisplayName), LSTRING(SmallEnvelopeDigDuration_Description)],
     LSTRING(Category),
-    [5, 600, 20], 
+    [5, 600, 200], 
     true
 ] call CBA_fnc_addSetting;
 
@@ -13,7 +13,7 @@
     "TIME", 
     [LSTRING(SmallEnvelopeRemoveDuration_DisplayName), LSTRING(SmallEnvelopeRemoveDuration_Description)],
     LSTRING(Category),
-    [5, 600, 12], 
+    [5, 600, 30], 
     true
 ] call CBA_fnc_addSetting;
 
@@ -22,7 +22,7 @@
     "TIME", 
     [LSTRING(BigEnvelopeDigDuration_DisplayName), LSTRING(BigEnvelopeDigDuration_Description)],
     LSTRING(Category),
-    [5, 600, 25], 
+    [5, 600, 360], 
     true
 ] call CBA_fnc_addSetting;
 
@@ -31,6 +31,6 @@
     "TIME", 
     [LSTRING(BigEnvelopeRemoveDuration_DisplayName), LSTRING(BigEnvelopeRemoveDuration_Description)],
     LSTRING(Category),
-    [5, 600, 15], 
+    [5, 600, 50], 
     true
 ] call CBA_fnc_addSetting;
