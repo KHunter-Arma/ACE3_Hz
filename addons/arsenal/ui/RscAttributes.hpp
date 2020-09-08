@@ -523,32 +523,10 @@ class GVAR(display) {
             h = QUOTE(6 * GRID_H);
             onLBSelChanged = QUOTE(_this call FUNC(sortPanel));
             sizeEx = QUOTE(5 * GRID_H);
-            class Items {
-                class Alphabet {
-                    text="$STR_a3_rscdisplayarsenal_sort_alphabet";
-                    default=1;
-                    value= 0;
-                };
-                class Mod {
-                    text="$STR_a3_rscdisplayarsenal_sort_mod";
-                    value= 1;
-                };
-            };
         };
         class sortRightTab: sortLeftTab {
             idc = IDC_sortRightTab;
             x = QUOTE(safezoneX + safezoneW - 93 * GRID_W);
-            class Items {
-                class Alphabet {
-                    text="$STR_a3_rscdisplayarsenal_sort_alphabet";
-                    default=1;
-                    value= 0;
-                };
-                class Weight {
-                    text="$STR_a3_rscdisplayarsenal_sort_mod";
-                    value= 1;
-                };
-            };
         };
         class leftSearchbar: ctrlEdit {
             idc = IDC_leftSearchbar;
@@ -775,7 +753,7 @@ class GVAR(display) {
                     y = QUOTE(170 * GRID_H);
                 };
                 class buttonInsigna: buttonPrimaryWeapon {
-                    idc = IDC_buttonInsigna;
+                    idc = IDC_buttonInsignia;
                     tooltip="$STR_A3_RscDisplayArsenal_tab_Insignia";
                     text="\A3\Ui_f\data\GUI\Rsc\RscDisplayArsenal\Insignia_ca.paa";
                     y = QUOTE(170 * GRID_H);
@@ -903,7 +881,7 @@ class GVAR(display) {
             tooltip="$STR_A3_RscDisplayArsenal_tab_CargoMisc";
             y = QUOTE(safezoneY + 88 * GRID_H);
         };
-        
+
         class buttonRemoveAll: ctrlButtonPicture {
             idc = IDC_buttonRemoveAll;
             text = QPATHTOF(data\iconClearContainer.paa);

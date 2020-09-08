@@ -53,8 +53,8 @@ class CfgVehicles {
         descriptionShort = CSTRING(EnevlopeSmallDescription);
         model = QPATHTOEF(apl,ace_envelope_small4.p3d);
         scope = 2;
-        GVAR(diggingDuration) = 200;
-        GVAR(removalDuration) = 30;
+        GVAR(diggingDuration) = QGVAR(smallEnvelopeDigDuration);
+        GVAR(removalDuration) = QGVAR(smallEnvelopeRemoveDuration);
         GVAR(noGeoClass) = "ACE_envelope_small_NoGeo";
         GVAR(placementData)[] = {2,3,0.35};
         GVAR(grassCuttingPoints)[] = {{0,-0.5,0}};
@@ -69,8 +69,8 @@ class CfgVehicles {
         descriptionShort = CSTRING(EnevlopeBigDescription);
         model = QPATHTOEF(apl,ace_envelope_big4.p3d);
         scope = 2;
-        GVAR(diggingDuration) = 360;
-        GVAR(removalDuration) = 50;
+        GVAR(diggingDuration) = QGVAR(bigEnvelopeDigDuration);
+        GVAR(removalDuration) = QGVAR(bigEnvelopeRemoveDuration);
         GVAR(noGeoClass) = "ACE_envelope_big_NoGeo";
         GVAR(placementData)[] = {6,1.1,0.20};
         GVAR(grassCuttingPoints)[] = {{-1.5,-1,0},{1.5,-1,0}};

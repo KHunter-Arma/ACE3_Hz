@@ -893,7 +893,7 @@
             <Italian>Sanguinamento</Italian>
             <Japanese>出血中</Japanese>
             <Korean>출혈</Korean>
-            <Chinesesimp>流血中</Chinesesimp>
+            <Chinesesimp>正在流血</Chinesesimp>
             <Chinese>出血中</Chinese>
             <Turkish>Kanama var</Turkish>
         </Key>
@@ -1087,6 +1087,7 @@
             <French>Informations patient</French>
             <Russian>Информация о пациенте</Russian>
             <Chinesesimp>伤员信息</Chinesesimp>
+            <Japanese>患者情報</Japanese>
         </Key>
     </Package>
 </Project>
