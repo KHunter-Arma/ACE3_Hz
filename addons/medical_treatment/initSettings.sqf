@@ -76,7 +76,7 @@
     "SLIDER",
     [LSTRING(TreatmentTimeAutoinjector_DisplayName), LSTRING(TreatmentTimeAutoinjector_Description)],
     [ELSTRING(medical,Category), LSTRING(SubCategory_Treatment)],
-    [0.1, 60, 5, 1],
+    [2, 60, 11, 0],
     true
 ] call CBA_settings_fnc_init;
 
@@ -85,7 +85,7 @@
     "SLIDER",
     [LSTRING(TreatmentTimeTourniquet_DisplayName), LSTRING(TreatmentTimeTourniquet_Description)],
     [ELSTRING(medical,Category), LSTRING(SubCategory_Treatment)],
-    [0.1, 60, 7, 1],
+    [2, 60, 22, 0],
     true
 ] call CBA_settings_fnc_init;
 
@@ -94,7 +94,7 @@
     "SLIDER",
     [LSTRING(TreatmentTimeSplint_DisplayName), LSTRING(TreatmentTimeSplint_Description)],
     [ELSTRING(medical,Category), LSTRING(SubCategory_Treatment)],
-    [0.1, 60, 7, 1],
+    [3, 90, 36, 0],
     true
 ] call CBA_settings_fnc_init;
 
@@ -103,7 +103,7 @@
     "SLIDER",
     [LSTRING(TreatmentTimeBodyBag_DisplayName), LSTRING(TreatmentTimeBodyBag_Description)],
     [ELSTRING(medical,Category), LSTRING(SubCategory_Treatment)],
-    [0.1, 60, 15, 1],
+    [3, 120, 40, 0],
     true
 ] call CBA_settings_fnc_init;
 
@@ -211,7 +211,7 @@
     "SLIDER",
     [LSTRING(WoundStitchTime_DisplayName), LSTRING(WoundStitchTime_Description)],
     [ELSTRING(medical,Category), LSTRING(SubCategory_Treatment)],
-    [0.1, 60, 5, 1],
+    [5, 300, 60, 0],
     true
 ] call CBA_settings_fnc_init;
 
@@ -238,7 +238,7 @@
     "SLIDER",
     [LSTRING(TreatmentTimeIV_DisplayName), LSTRING(TreatmentTimeIV_Description)],
     [ELSTRING(medical,Category), LSTRING(SubCategory_Treatment)],
-    [0.1, 60, 12, 1],
+    [3, 120, 60, 0],
     true
 ] call CBA_settings_fnc_init;
 
@@ -256,7 +256,7 @@
     "SLIDER",
     [LSTRING(TreatmentTimeCPR_DisplayName), LSTRING(TreatmentTimeCPR_Description)],
     [ELSTRING(medical,Category), LSTRING(SubCategory_Treatment)],
-    [0.1, 60, 15, 1],
+    [3, 60, 20, 0],
     true
 ] call CBA_settings_fnc_init;
 
