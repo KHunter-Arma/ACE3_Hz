@@ -43,34 +43,43 @@ if (hasInterface) then {
 
 // Affect local AI
 // @todo: Affect units in static weapons, turned out, etc
-private _affected = (ASLtoAGL _grenadePosASL) nearEntities ["CAManBase", 20];
-_affected = _affected - [ACE_player];
-{
-    if (local _x && {alive _x}) then {
-        private _strength = 1 - (((eyePos _x) vectorDistance _grenadePosASL) min 20) / 20;
+if (!isClass (configfile >> "CfgPatches" >> "Hz_AI")) then {
 
-        TRACE_3("FlashBangEffect Start",_x,((getPosASL _x) vectorDistance _grenadePosASL),_strength);
+	private _affected = (ASLtoAGL _grenadePosASL) nearEntities ["CAManBase", 20];
+	_affected = _affected - [ACE_player];
+	
+	{
+			if (local _x && {alive _x}) then {
+					private _strength = 1 - (((eyePos _x) vectorDistance _grenadePosASL) min 20) / 20;
 
-        [_x, true] call EFUNC(common,disableAI);
+					TRACE_3("FlashBangEffect Start",_x,((getPosASL _x) vectorDistance _grenadePosASL),_strength);
 
-        _x setSkill (skill _x / 50);
+					[_x, true] call EFUNC(common,disableAI);
 
-        // Make AI try to look away
-        private _dirToFlash = _x getDir _grenadePosASL;
-        _x setDir (_dirToFlash + linearConversion [0.2, 1, _strength, 40, 135] * selectRandom [-1, 1]);
+					_x setSkill (skill _x / 50);
 
-        [{
-            params ["_unit"];
+					// Make AI try to look away
+					private _dirToFlash = _x getDir _grenadePosASL;
+					_x setDir (_dirToFlash + linearConversion [0.2, 1, _strength, 40, 135] * selectRandom [-1, 1]);
 
-            //Make sure we don't enable AI for unconscious units
-            if !(_unit getVariable ["ace_isUnconscious", false]) then {
-                [_unit, false] call EFUNC(common,disableAI);
-            };
+					[{
+							params ["_unit"];
 
-            _unit setSkill (skill _unit * 50);
-        }, [_x], 7 * _strength] call CBA_fnc_waitAndExecute;
-    };
-} count _affected;
+							//Make sure we don't enable AI for unconscious units
+							if !(_unit getVariable ["ace_isUnconscious", false]) then {
+									[_unit, false] call EFUNC(common,disableAI);
+							};
+
+							_unit setSkill (skill _unit * 50);
+					}, [_x], 7 * _strength] call CBA_fnc_waitAndExecute;
+			};
+	} count _affected;
+
+} else {
+
+	[_grenadePosASL] call Hz_func_AI_flashbangCheckStunned;
+	
+};
 
 // Affect local player, independently of distance
 if (hasInterface && {!isNull ACE_player} && {alive ACE_player}) then {
