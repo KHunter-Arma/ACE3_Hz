@@ -42,33 +42,27 @@ if (_pylon > 0) exitWith {
 				// Fill magazine completely
         if (_turretPath isEqualTo [-1]) then {_turretPath = [];}; // Convert back to pylon turret format
 
-        TRACE_2("",_pylon,_magazineClass,_rounds);
-		
 				private _HzCost = _rounds*_HzAmmoUnitCost;
 
 				if (_HzEconRunning && {Hz_econ_funds < _HzCost}) then {
-		
 					"Insufficient funds!" remoteExecCall ["hint",_unit,false];
-					
 				} else {
 				
 					if (_HzEconRunning) then {
-			
 						Hz_econ_funds = Hz_econ_funds - _HzCost;
 						publicVariable "Hz_econ_funds";
 						private _hint = format ["Rearm cost: $%1",_HzCost];
 						_hint remoteExecCall ["hint",_unit,false];
-						
 					};
 				
 					TRACE_3("",_pylon,_magazineClass,_rounds);
 					_vehicle setPylonLoadOut [_pylon, _magazineClass, true, _turretPath];
 					[QEGVAR(common,displayTextStructured), [[LSTRING(Hint_RearmedTriple), _rounds,
-						getText(configFile >> "CfgMagazines" >> _magazineClass >> "displayName"),
-            getText(configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;
+							getText(configFile >> "CfgMagazines" >> _magazineClass >> "displayName"),
+							getText(configOf _vehicle >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;
 						
 			  };
-						
+
     } else {
 		
         // Fill only at most _numRounds
@@ -76,37 +70,29 @@ if (_pylon > 0) exitWith {
         private _currentCount = _vehicle ammoOnPylon _pylon;
         private _newCount = ((_currentCount max 0) + _numRounds) min _rounds;
 				
-        TRACE_2("",_pylon,_magazineClass,_newCount);
-				
 				// Hunter'z Economy Interface
 				private _HzRoundsAdded = _newCount - _currentCount;
 				private _HzCost = _HzRoundsAdded*_HzAmmoUnitCost;
 				
 				if (_HzEconRunning && {Hz_econ_funds < _HzCost}) then {
-					
 					"Insufficient funds!" remoteExecCall ["hint",_unit,false];
-					
 				} else {
 				
 					if (_HzEconRunning) then {
-				
 							Hz_econ_funds = Hz_econ_funds - _HzCost;
 							publicVariable "Hz_econ_funds";
 							private _hint = format ["Rearm cost: $%1",_HzCost];
 							_hint remoteExecCall ["hint",_unit,false];
-							
 					};
 				
         TRACE_3("",_pylon,_magazineClass,_newCount);
-				
         _vehicle setPylonLoadOut [_pylon, _magazineClass, true, _turretPath];
         _vehicle setAmmoOnPylon [_pylon, _newCount];
         [QEGVAR(common,displayTextStructured), [[LSTRING(Hint_RearmedTriple), _numRounds,
             getText(configFile >> "CfgMagazines" >> _magazineClass >> "displayName"),
-            getText(configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;
+            getText(configOf _vehicle >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;
 						
 				};
-						
     };
 };
 
@@ -169,4 +155,4 @@ if (_HzEconRunning) then {
 
 [QEGVAR(common,displayTextStructured), [[LSTRING(Hint_RearmedTriple), _ammoAdded,
 _magazineClass call FUNC(getMagazineName),
-getText(configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;
+getText(configOf _vehicle >> "displayName")], 3, _unit], [_unit]] call CBA_fnc_targetEvent;

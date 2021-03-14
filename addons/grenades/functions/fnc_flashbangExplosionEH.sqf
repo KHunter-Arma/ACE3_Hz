@@ -83,7 +83,7 @@ if (!isClass (configfile >> "CfgPatches" >> "Hz_AI")) then {
 
 // Affect local player, independently of distance
 if (hasInterface && {!isNull ACE_player} && {alive ACE_player}) then {
-    if ((getNumber (configFile >> "CfgVehicles" >> (typeOf ACE_player) >> "isPlayableLogic")) == 1) exitWith {
+    if ((getNumber (configOf ACE_player >> "isPlayableLogic")) == 1) exitWith {
         TRACE_1("skipping playable logic",typeOf ACE_player); // VirtualMan_F (placeable logic zeus / spectator)
     };
     // Do effects for player
