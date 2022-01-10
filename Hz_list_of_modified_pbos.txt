@@ -1,4 +1,5 @@
 - dragging
+- field_rations
 - grenades
 - magazinerepack
 - medical_engine

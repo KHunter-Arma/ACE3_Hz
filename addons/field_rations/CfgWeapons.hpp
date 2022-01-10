@@ -32,10 +32,10 @@ class CfgWeapons {
         model = "\a3\structures_f_epa\items\food\bottleplastic_v2_f.p3d";
         picture = QPATHTOF(ui\item_waterbottle_full_co.paa);
         class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 5;
+            mass = 12;
         };
         XGVAR(consumeTime) = 10;
-        XGVAR(thirstQuenched) = 10;
+        XGVAR(thirstQuenched) = 5;
         XGVAR(consumeText) = CSTRING(DrinkingFromX);
         XGVAR(replacementItem) = "ACE_WaterBottle_Half";
         XGVAR(consumeAnims)[] = {QGVAR(drinkStand), QGVAR(drinkCrouch), QGVAR(drinkProne)};
@@ -47,7 +47,7 @@ class CfgWeapons {
         displayName = CSTRING(WaterBottleHalf_DisplayName);
         descriptionShort = CSTRING(WaterBottleHalf_Description);
         class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 3;
+            mass = 6;
         };
         XGVAR(replacementItem) = "ACE_WaterBottle_Empty";
         XGVAR(refillItem) = "ACE_WaterBottle";
@@ -79,7 +79,7 @@ class CfgWeapons {
         model = "\a3\structures_f_epa\items\food\canteen_f.p3d";
         picture = QPATHTOF(ui\item_canteen_co.paa);
         class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 5;
+            mass = 27;
         };
         XGVAR(consumeTime) = 10;
         XGVAR(thirstQuenched) = 10;
@@ -94,7 +94,7 @@ class CfgWeapons {
         displayName = CSTRING(CanteenHalf_DisplayName);
         descriptionShort = CSTRING(CanteenHalf_Description);
         class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 3;
+            mass = 15;
         };
         XGVAR(replacementItem) = "ACE_Canteen_Empty";
         XGVAR(refillItem) = "ACE_Canteen";
@@ -107,7 +107,7 @@ class CfgWeapons {
         displayName = CSTRING(CanteenEmpty_DisplayName);
         descriptionShort = CSTRING(CanteenEmpty_Description);
         class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 1;
+            mass = 4;
         };
         XGVAR(thirstQuenched) = 0;
         XGVAR(replacementItem) = "";
@@ -125,7 +125,7 @@ class CfgWeapons {
         model = "\a3\structures_f\items\food\can_v1_f.p3d";
         picture = QPATHTOF(ui\icon_can_spirit_ca.paa);
         class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 3;
+            mass = 10;
         };
         XGVAR(consumeTime) = 10;
         XGVAR(thirstQuenched) = 5;
