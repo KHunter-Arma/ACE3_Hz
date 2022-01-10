@@ -147,13 +147,19 @@ if (_HzEconRunning && {Hz_econ_funds < _HzCost}) exitWith {hint "Insufficient fu
         private _rateTime = _rate * (CBA_missionTime - (_nozzle getVariable [QGVAR(lastTickMissionTime), CBA_missionTime]));
         _nozzle setVariable [QGVAR(lastTickMissionTime), CBA_missionTime];
 
-        if !(_fuelInSource == REFUEL_INFINITE_FUEL) then {
-            _fuelInSource = _fuelInSource - _rateTime;
+        if (_fuelInSource != REFUEL_INFINITE_FUEL) then {
+            if (_rateTime > _fuelInSource) then {
+                _rateTime = _fuelInSource;
+                _fuelInSource = 0;
+            } else {
+                _fuelInSource = _fuelInSource - _rateTime;
+            };
         } else {
             _source setVariable [QGVAR(fuelCounter), (_source getVariable [QGVAR(fuelCounter), 0]) + _rateTime, true];
         };
-        if (_fuelInSource < 0 && {_fuelInSource > REFUEL_INFINITE_FUEL}) then {
+        if (_fuelInSource <= 0 && {_fuelInSource != REFUEL_INFINITE_FUEL}) then {
             _fuelInSource = 0;
+            [_source, _fuelInSource] call FUNC(setFuel);
             _finished = true;
             [LSTRING(Hint_SourceEmpty), 2, _unit] call EFUNC(common,displayTextStructured);
         };

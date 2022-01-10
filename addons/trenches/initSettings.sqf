@@ -1,7 +1,7 @@
 // Trenches dig/remove durations
 [
-    QGVAR(smallEnvelopeDigDuration), 
-    "TIME", 
+    QGVAR(smallEnvelopeDigDuration),
+    "TIME",
     [LSTRING(SmallEnvelopeDigDuration_DisplayName), LSTRING(SmallEnvelopeDigDuration_Description)],
     LSTRING(Category),
     [5, 600, 200], 
@@ -9,8 +9,8 @@
 ] call CBA_fnc_addSetting;
 
 [
-    QGVAR(smallEnvelopeRemoveDuration), 
-    "TIME", 
+    QGVAR(smallEnvelopeRemoveDuration),
+    "TIME",
     [LSTRING(SmallEnvelopeRemoveDuration_DisplayName), LSTRING(SmallEnvelopeRemoveDuration_Description)],
     LSTRING(Category),
     [5, 600, 30], 
@@ -18,8 +18,8 @@
 ] call CBA_fnc_addSetting;
 
 [
-    QGVAR(bigEnvelopeDigDuration), 
-    "TIME", 
+    QGVAR(bigEnvelopeDigDuration),
+    "TIME",
     [LSTRING(BigEnvelopeDigDuration_DisplayName), LSTRING(BigEnvelopeDigDuration_Description)],
     LSTRING(Category),
     [5, 600, 360], 
@@ -27,8 +27,8 @@
 ] call CBA_fnc_addSetting;
 
 [
-    QGVAR(bigEnvelopeRemoveDuration), 
-    "TIME", 
+    QGVAR(bigEnvelopeRemoveDuration),
+    "TIME",
     [LSTRING(BigEnvelopeRemoveDuration_DisplayName), LSTRING(BigEnvelopeRemoveDuration_Description)],
     LSTRING(Category),
     [5, 600, 50], 

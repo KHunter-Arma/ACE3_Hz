@@ -45,7 +45,7 @@ private _totalNumOfMags = 0;
 			if ((_xCount != _fullMagazineCount) && {_xCount > 0}) then {
         if (_xLoaded) then {
             //Try to Remove from weapon and add to inventory, otherwise ignore
-            if ([_player, _magazineClassname] call CBA_fnc_canAddItem) then {
+            if (GVAR(repackLoadedMagazines) && {[_player, _magazineClassname] call CBA_fnc_canAddItem}) then {
                 switch (_xType) do {
                     case (1): {_player removePrimaryWeaponItem _magazineClassname};
                     case (2): {_player removeHandgunItem _magazineClassname};
@@ -54,6 +54,7 @@ private _totalNumOfMags = 0;
                 };
                 _player addMagazine [_magazineClassname, _xCount];
                 _startingAmmoCounts pushBack _xCount;
+                [LLSTRING(repackLoadedMagazinesHint)] call EFUNC(common,displayTextStructured);
             };
         } else {
             _startingAmmoCounts pushBack _xCount;
