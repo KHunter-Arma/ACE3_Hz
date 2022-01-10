@@ -35,7 +35,7 @@ class CfgWeapons {
             mass = 12;
         };
         XGVAR(consumeTime) = 10;
-        XGVAR(thirstQuenched) = 5;
+        XGVAR(thirstQuenched) = 10;
         XGVAR(consumeText) = CSTRING(DrinkingFromX);
         XGVAR(replacementItem) = "ACE_WaterBottle_Half";
         XGVAR(consumeAnims)[] = {QGVAR(drinkStand), QGVAR(drinkCrouch), QGVAR(drinkProne)};
@@ -82,7 +82,7 @@ class CfgWeapons {
             mass = 27;
         };
         XGVAR(consumeTime) = 10;
-        XGVAR(thirstQuenched) = 10;
+        XGVAR(thirstQuenched) = 20;
         XGVAR(consumeText) = CSTRING(DrinkingFromX);
         XGVAR(replacementItem) = "ACE_Canteen_Half";
         XGVAR(consumeAnims)[] = {QGVAR(drinkStand), QGVAR(drinkCrouch), QGVAR(drinkProne)};

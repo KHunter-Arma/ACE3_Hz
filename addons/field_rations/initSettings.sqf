@@ -14,7 +14,7 @@
     "SLIDER",
     [LSTRING(TimeWithoutWater_DisplayName), LSTRING(TimeWithoutWater_Description)],
     LSTRING(DisplayName),
-    [0.1, 168, 2, 1],
+    [0.1, 168, 8.3, 1],
     true
 ] call CBA_fnc_addSetting;
 
@@ -23,7 +23,7 @@
     "SLIDER",
     [LSTRING(TimeWithoutFood_DisplayName), LSTRING(TimeWithoutFood_Description)],
     LSTRING(DisplayName),
-    [0.1, 504, 2, 1],
+    [0.1, 504, 20, 1],
     true
 ] call CBA_fnc_addSetting;
 
