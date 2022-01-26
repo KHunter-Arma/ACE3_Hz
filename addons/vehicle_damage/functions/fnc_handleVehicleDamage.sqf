@@ -60,7 +60,7 @@ if (_type isEqualTo "exit") exitWith { LOG_1("No relevant hitpoints hit [%1]. Ex
 
 // Ignore multiple hits at the same time
 private _ignoreHit = false;
-private _ignoreBailCheck = false;
+private _ignoreBailCheck = true; // Hunter: override this so they never bail (unless the vehicle is truly destroyed - handled differently)
 private _multHit = _vehicle getVariable [QGVAR(hitTime), nil];
 if (isNil "_multHit") then {
     _vehicle setVariable[QGVAR(hitTime), [CBA_missionTime, _injurer, [_hitPoint]]];
