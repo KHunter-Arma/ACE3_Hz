@@ -3,7 +3,6 @@
 - grenades
 - magazinerepack
 - medical_engine
-- medical_gui
 - medical_status
 - medical_treatment
 - medical_vitals
