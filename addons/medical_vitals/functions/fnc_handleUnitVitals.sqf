@@ -147,14 +147,19 @@ switch (true) do {
     case (_woundBloodLoss > BLOOD_LOSS_KNOCK_OUT_THRESHOLD): {
         [QEGVAR(medical,CriticalVitals), _unit] call CBA_fnc_localEvent;
     };
-		case (_bloodPressureH < 105): {		
-			if ((random 1) > 0.95) then {
-				[_unit, true, 5 + (random 10), true] call EFUNC(medical,setUnconscious);		
+		case ((_bloodPressureH < 100) || {_bloodPressureL < 60}): {
+			if ((_bloodPressureH < 90) || {_bloodPressureL < 50}) then {
+				[QEGVAR(medical,CriticalVitals), _unit] call CBA_fnc_localEvent;
 			} else {
-				if (_bloodPressureH < 100) then {		
-					[_unit, true, 20 + (random 40), true] call EFUNC(medical,setUnconscious);
-				};		
-			};			
+				[QEGVAR(medical,LoweredVitals), _unit] call CBA_fnc_localEvent;
+				if ((isPlayer _unit) && {(random 1) < 0.3}) then {
+					if (!(_unit getVariable [QEGVAR(medical_vitals,forcedWalk), false])) then {
+						[_unit, "forceWalk", "ACE_medical_lowBP", true] call EFUNC(common,statusEffect_set);
+						_unit setVariable [QEGVAR(medical_vitals,forcedWalk), true];
+					};
+					[true, 2] call EFUNC(medical_feedback,effectUnconscious);
+				};
+			};		
     };
     case (_woundBloodLoss > 0): {
         [QEGVAR(medical,LoweredVitals), _unit] call CBA_fnc_localEvent;
@@ -162,6 +167,12 @@ switch (true) do {
     case (_inPain): {
         [QEGVAR(medical,LoweredVitals), _unit] call CBA_fnc_localEvent;
     };
+};
+
+if ((_bloodPressureH > 100) && {_bloodPressureL > 60}
+&& {_unit getVariable [QEGVAR(medical_vitals,forcedWalk), false]}) then {
+	[_unit, "forceWalk", "ACE_medical_lowBP", false] call EFUNC(common,statusEffect_set);
+	_unit setVariable [QEGVAR(medical_vitals,forcedWalk), false];
 };
 
 #ifdef DEBUG_MODE_FULL

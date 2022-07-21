@@ -26,7 +26,7 @@ if (_bloodLoss > (BLOOD_LOSS_KNOCK_OUT_THRESHOLD * _cardiacOutput) / 2) exitWith
 
 private _bloodPressure = GET_BLOOD_PRESSURE(_unit);
 _bloodPressure params ["_bloodPressureL", "_bloodPressureH"];
-if (_bloodPressureL < 50 || {_bloodPressureH < 60}) exitWith { false };
+if (_bloodPressureL < 60 || {_bloodPressureH < 90}) exitWith { false };
 
 private _heartRate = GET_HEART_RATE(_unit);
 if (_heartRate < 40) exitWith { false };
