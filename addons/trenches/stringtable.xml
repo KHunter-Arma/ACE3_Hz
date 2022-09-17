@@ -11,7 +11,7 @@
             <Czech>Polní lopatka</Czech>
             <Portuguese>Ferramenta de trincheira</Portuguese>
             <Russian>Саперная лопата</Russian>
-            <Japanese>シャベル</Japanese>
+            <Japanese>塹壕ツール</Japanese>
             <Korean>야전삽</Korean>
             <Chinesesimp>战备锹</Chinesesimp>
             <Chinese>戰備鍬</Chinese>
@@ -27,7 +27,7 @@
             <Czech>Polní lopatky se používají k zákopovým a jiným pracem.</Czech>
             <Portuguese>Ferramenta de trincheira</Portuguese>
             <Russian>Саперная лопата</Russian>
-            <Japanese>シャベル</Japanese>
+            <Japanese>塹壕ツール</Japanese>
             <Korean>야전삽</Korean>
             <Chinesesimp>战备锹</Chinesesimp>
             <Chinese>戰備鍬</Chinese>
@@ -225,6 +225,11 @@
             <Chinese>移除掩體</Chinese>
             <Turkish>Siperi Kaldır</Turkish>
             <Spanish>Eliminar trinchera</Spanish>
+        </Key>
+        <Key ID="STR_ACE_Trenches_CamouflageTrench">
+            <English>Camouflage Trench</English>
+            <Polish>Zakamufluj Okop</Polish>
+            <Chinesesimp>伪装掩体</Chinesesimp>
         </Key>
         <Key ID="STR_ACE_Trenches_RemovingTrench">
             <English>Removing Trench</English>
