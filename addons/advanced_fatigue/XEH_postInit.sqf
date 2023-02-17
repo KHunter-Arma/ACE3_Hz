@@ -44,11 +44,11 @@ if (!hasInterface) exitWith {};
 
     // - Duty factors -------------------------------------------------------------
     if (["ACE_Medical"] call EFUNC(common,isModLoaded)) then {
-        [QEGVAR(medical,pain), { // 0->1.0, 0.5->1.05, 1->1.1
-            linearConversion [0, 1, (_this getVariable [QEGVAR(medical,pain), 0]), 1, 1.1, true];
+        [QEGVAR(medical,pain), { // 0->1.0, 0.5->1.25, 1->1.5
+            linearConversion [0, 1, (_this getVariable [QEGVAR(medical,pain), 0]), 1, 1.5, true];
         }] call FUNC(addDutyFactor);
-        [QEGVAR(medical,bloodVolume), { // 6->1.0, 5->1.167, 4->1.33
-            linearConversion [6, 0, (_this getVariable [QEGVAR(medical,bloodVolume), 6]), 1, 2, true];
+        [QEGVAR(medical,bloodVolume), { // 6->1.0, 5.4->1.3, 4.2->1.9
+            linearConversion [6, 3, (_this getVariable [QEGVAR(medical,bloodVolume), 6]), 1, 2.5, true];
         }] call FUNC(addDutyFactor);
     };
     if (["ACE_Dragging"] call EFUNC(common,isModLoaded)) then {
@@ -58,8 +58,8 @@ if (!hasInterface) exitWith {};
     };
     // Weather has an off switch, Dragging & Medical don't.
     if (missionNamespace getVariable [QEGVAR(weather,enabled), false]) then {
-        [QEGVAR(weather,temperature), { // 35->1, 45->2
-            linearConversion [35, 45, (missionNamespace getVariable [QEGVAR(weather,currentTemperature), 25]), 1, 2, true];
+        [QEGVAR(weather,temperature), { // 30->1, 40->2
+            linearConversion [30, 45, (missionNamespace getVariable [QEGVAR(weather,currentTemperature), 25]), 1, 2.5, true];
         }] call FUNC(addDutyFactor);
     };
 
