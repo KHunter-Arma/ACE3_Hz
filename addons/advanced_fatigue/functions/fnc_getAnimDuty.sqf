@@ -26,10 +26,10 @@ GVAR(isProne) = (stance _unit) == "PRONE";
 if (_animType in ["idl", "mov", "adj"]) then {
     switch (_animName select [5, 3]) do {
         case ("knl"): {
-            _duty = 1.5;
+            _duty = 2;
         };
         case ("pne"): {
-            _duty = 10;
+            _duty = 2;
             GVAR(isProne) = true; // #4880 - Unarmed sprint->prone has wrong `stance`
         };
         default {
@@ -40,10 +40,10 @@ if (_animType in ["idl", "mov", "adj"]) then {
     if (currentWeapon _unit != handgunWeapon _unit) then {
         if (_animName select [13, 3] == "ras") then {
             // low ready jog
-            _duty = _duty * 1.2;
+            _duty = _duty * 1.1;
             if (_animName select [9, 3] == "tac") then {
                 // high ready jog/walk
-                _duty = _duty * 1.5;
+                _duty = _duty * 1.25;
             };
         };
     };
@@ -51,7 +51,7 @@ if (_animType in ["idl", "mov", "adj"]) then {
     // swimming and diving
     switch (true) do {
         case (_animType in ["swm", "ssw", "bsw"]): {
-            _duty = 6.5;
+            _duty = 2.5;
             GVAR(isSwimming) = true;
         };
         case (_animType in ["dve", "sdv", "bdv"]): {
