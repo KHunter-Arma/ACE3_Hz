@@ -78,7 +78,7 @@
 
 // Pain fade out time (time it takes until pain is guaranteed to be completly gone)
 #define PAIN_FADE_TIME EGVAR(medical,const_painFadeTime)
-#define PAIN_FADE_TIME_DEFAULT 900
+#define PAIN_FADE_TIME_DEFAULT 14400
 
 // Only relevant when advanced medication is disabled
 // Morphine pain suppression fade out time (time it takes until pain suppression is guaranteed to be completly gone)
