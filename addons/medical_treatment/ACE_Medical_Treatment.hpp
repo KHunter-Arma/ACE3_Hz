@@ -575,23 +575,23 @@ class ADDON {
         // specific details for the ACE_Morphine treatment action
         class Morphine {
             painReduce = 0.8;
-            hrIncreaseLow[] = {-10, -20};
-            hrIncreaseNormal[] = {-10, -30};
-            hrIncreaseHigh[] = {-10, -35};
-            timeInSystem = 1800;
-            timeTillMaxEffect = 30;
-            maxDose = 4;
+            hrIncreaseLow[] = {-5, -10};
+            hrIncreaseNormal[] = {-5, -12};
+            hrIncreaseHigh[] = {-5, -12};
+            timeInSystem = 10800;
+            timeTillMaxEffect = 450;
+            maxDose = 6;
             incompatibleMedication[] = {};
             viscosityChange = -10;
         };
         class Epinephrine {
             painReduce = 0;
             hrIncreaseLow[] = {10, 20};
-            hrIncreaseNormal[] = {10, 50};
-            hrIncreaseHigh[] = {10, 40};
-            timeInSystem = 120;
-            timeTillMaxEffect = 10;
-            maxDose = 10;
+            hrIncreaseNormal[] = {10, 20};
+            hrIncreaseHigh[] = {15, 30};
+            timeInSystem = 600;
+            timeTillMaxEffect = 120;
+            maxDose = 5;
             incompatibleMedication[] = {};
         };
         class Adenosine {
@@ -601,7 +601,7 @@ class ADDON {
             hrIncreaseHigh[] = {-15, -35};
             timeInSystem = 120;
             timeTillMaxEffect = 15;
-            maxDose = 6;
+            maxDose = 4;
             incompatibleMedication[] = {};
         };
         class PainKillers {
