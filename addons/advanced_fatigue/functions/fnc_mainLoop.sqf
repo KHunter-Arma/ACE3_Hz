@@ -55,7 +55,8 @@ GVAR(ae1Reserve) = GVAR(ae1Reserve) - _ae1Power / WATTSPERATP;
 GVAR(ae2Reserve) = GVAR(ae2Reserve) - _ae2Power / WATTSPERATP;
 GVAR(anReserve)  = GVAR(anReserve)  -  _anPower / WATTSPERATP;
 // Increase anearobic fatigue
-GVAR(anFatigue)  = GVAR(anFatigue) + _anPower * (0.057 / GVAR(peakPower)) * 1.1;
+// Hunter: disable long-term stamina effect
+//GVAR(anFatigue)  = GVAR(anFatigue) + _anPower * (0.057 / GVAR(peakPower)) * 1.1;
 
 // Aerobic ATP reserve recovery
 GVAR(ae1Reserve) = ((GVAR(ae1Reserve) + OXYGEN * 6.60 * (GVAR(ae1PathwayPower) - _ae1Power) / GVAR(ae1PathwayPower) * GVAR(recoveryFactor)) min AE1_MAXRESERVE) max 0;
@@ -66,9 +67,12 @@ GVAR(anReserve) = ((GVAR(anReserve)
     + (_ae1PathwayPowerFatigued + _ae2PathwayPowerFatigued - _ae1Power - _ae2Power) / GVAR(VO2MaxPower) * 56.7 * GVAR(anFatigue) ^ 2 * GVAR(recoveryFactor)
 ) min AN_MAXRESERVE) max 0;
 
+// Hunter: disable long-term stamina effect
+/*
 GVAR(anFatigue) = ((GVAR(anFatigue)
     - (_ae1PathwayPowerFatigued + _ae2PathwayPowerFatigued - _ae1Power - _ae2Power) * (0.057 / GVAR(peakPower)) * GVAR(anFatigue) ^ 2 * GVAR(recoveryFactor)
 ) min 1) max 0;
+*/
 
 private _aeReservePercentage = (GVAR(ae1Reserve) / AE1_MAXRESERVE + GVAR(ae2Reserve) / AE2_MAXRESERVE) / 2;
 private _anReservePercentage = GVAR(anReserve) / AN_MAXRESERVE;
