@@ -45,7 +45,7 @@ if (_newUnit getVariable [QGVAR(animHandler), -1] == -1) then {
 GVAR(ae1Reserve)      = _newUnit getVariable [QGVAR(ae1Reserve), AE1_MAXRESERVE];
 GVAR(ae2Reserve)      = _newUnit getVariable [QGVAR(ae2Reserve), AE2_MAXRESERVE];
 GVAR(anReserve)       = _newUnit getVariable [QGVAR(anReserve), AN_MAXRESERVE];
-GVAR(anFatigue)       = _newUnit getVariable [QGVAR(anFatigue), 0];
+GVAR(anFatigue)       = _newUnit getVariable [QGVAR(anFatigue), 1];
 GVAR(muscleDamage)    = _newUnit getVariable [QGVAR(muscleDamage), 0];
 
 // Clean variables for respawning units
