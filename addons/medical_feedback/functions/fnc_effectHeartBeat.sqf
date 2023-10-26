@@ -35,7 +35,7 @@ switch (true) do {
         if (isGameFocused) then { playSound "ACE_heartbeat_fast_1"; };
         [FUNC(effectHeartBeat), [], _waitTime] call CBA_fnc_waitAndExecute;
     };
-    case (_heartRate < 60): {
+    case (_heartRate < 70): {
         if (isGameFocused) then { playSound SND_HEARBEAT_SLOW; };
         [FUNC(effectHeartBeat), [], _waitTime] call CBA_fnc_waitAndExecute;
     };
