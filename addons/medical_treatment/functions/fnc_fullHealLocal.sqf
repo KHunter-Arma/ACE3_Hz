@@ -37,7 +37,7 @@ if IN_CRDC_ARRST(_patient) then {
     TRACE_1("after CPRSucceeded",_state);
 };
 
-_patient setVariable [VAR_PAIN, 0, true];
+//_patient setVariable [VAR_PAIN, 0, true];
 
 // Wounds and Injuries
 _patient setVariable [VAR_STITCHED_WOUNDS, [], true];
@@ -59,7 +59,7 @@ if IS_UNCONSCIOUS(_patient) then {
 // Generic medical admin
 // _patient setVariable [VAR_CRDC_ARRST, false, true]; // this should be set by statemachine transition
 // _patient setVariable [VAR_UNCON, false, true]; // this should be set by statemachine transition
-_patient setVariable [VAR_IN_PAIN, false, true];
+//_patient setVariable [VAR_IN_PAIN, false, true];
 
 [_patient] call EFUNC(medical_engine,updateDamageEffects);
 
