@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: Glowbal
  * Local callback for fully healing a patient.
@@ -40,8 +40,9 @@ if IN_CRDC_ARRST(_patient) then {
 //_patient setVariable [VAR_PAIN, 0, true];
 
 // Wounds and Injuries
-_patient setVariable [VAR_STITCHED_WOUNDS, [], true];
+_patient setVariable [VAR_STITCHED_WOUNDS, createHashMap, true];
 _patient setVariable [QEGVAR(medical,isLimping), false, true];
+//_patient setVariable [VAR_FRACTURES, DEFAULT_FRACTURE_VALUES, true];
 
 // Damage storage
 _patient setVariable [QEGVAR(medical,bodyPartDamage), [0,0,0,0,0,0], true];
