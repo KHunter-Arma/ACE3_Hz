@@ -19,6 +19,9 @@
 params ["_unit", "_target"];
 TRACE_2("params",_unit,_target);
 
+// carrying dead units isn't possible because Arma 3 will force ragdoll them...
+if (!alive _target) exitWith {};
+
 // Exempt from weight check if object has override variable set
 private _weight = 0;
 
@@ -30,9 +33,6 @@ if !(_target getVariable [QGVAR(ignoreWeightCarry), false]) then {
 if (_weight > GETMVAR(ACE_maxWeightCarry,1E11)) exitWith {
     [LLSTRING(UnableToDrag)] call EFUNC(common,displayTextStructured);
 };
-
-// carrying dead units isn't possible because Arma 3 will force ragdoll them...
-if (!alive _target) exitWith {};
 
 private _timer = CBA_missionTime + 5;
 
