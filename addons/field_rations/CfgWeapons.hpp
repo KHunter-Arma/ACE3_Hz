@@ -164,7 +164,7 @@ class CfgWeapons {
         class ItemInfo: CBA_MiscItem_ItemInfo {
             mass = 5;
         };
-        XGVAR(consumeTime) = 10;
+        XGVAR(consumeTime) = 60;
         XGVAR(hungerSatiated) = 20;
         XGVAR(consumeText) = CSTRING(EatingX);
         ACE_isFieldRationItem = 1;
@@ -241,8 +241,8 @@ class CfgWeapons {
         class ItemInfo: CBA_MiscItem_ItemInfo {
             mass = 3;
         };
-        XGVAR(consumeTime) = 10;
-        XGVAR(hungerSatiated) = 10;
+        XGVAR(consumeTime) = 30;
+        XGVAR(hungerSatiated) = 7;
         XGVAR(consumeText) = CSTRING(EatingX);
         ACE_isFieldRationItem = 1;
     };
