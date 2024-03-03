@@ -22,6 +22,9 @@ TRACE_3("params",_unit,_target,_claimed);
 
 if (!_claimed) exitWith { WARNING_1("already claimed %1",_this) };
 
+// dragging dead units isn't possible because Arma 3 will force ragdoll them...
+if (!alive _target) exitWith {};
+
 // Exempt from weight check if object has override variable set
 private _weight = 0;
 
