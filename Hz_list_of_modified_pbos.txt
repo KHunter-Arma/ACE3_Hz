@@ -3,6 +3,7 @@
 - field_rations
 - grenades
 - magazinerepack
+- medical_ai
 - medical_engine
 - medical_status
 - medical_treatment
