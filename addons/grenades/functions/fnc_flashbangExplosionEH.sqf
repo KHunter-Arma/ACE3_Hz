@@ -117,7 +117,7 @@ if (hasInterface && {!isNull ACE_player} && {alive ACE_player}) then {
 
     // Add ace_hearing ear ringing sound effect
     if (["ace_hearing"] call EFUNC(common,isModLoaded) && {_strength > 0 && {EGVAR(hearing,damageCoefficent) > 0.25}}) then {
-        private _earringingStrength = 40 * _strength;
+        private _earringingStrength = 80 * _strength;
         [_earringingStrength] call EFUNC(hearing,earRinging);
         TRACE_1("Earringing Strength",_earringingStrength);
     };
@@ -154,12 +154,12 @@ if (hasInterface && {!isNull ACE_player} && {alive ACE_player}) then {
 
             GVAR(flashbangPPEffectCC) ppEffectAdjust [1, 1, 0, _blend, [0,0,0,1], [0,0,0,0]];
             GVAR(flashbangPPEffectCC) ppEffectCommit (10 * _strength);
-        }, [_strength, _blend], 7 * _strength] call CBA_fnc_waitAndExecute;
+        }, [_strength, _blend], 14 * _strength] call CBA_fnc_waitAndExecute;
 
         //FULLRECOVERY - end effect
         [{
             GVAR(flashbangPPEffectCC) ppEffectEnable false;
-        }, [], 17 * _strength] call CBA_fnc_waitAndExecute;
+        }, [], 51 * _strength] call CBA_fnc_waitAndExecute;
     };
 
     // Make player flinch
