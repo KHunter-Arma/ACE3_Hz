@@ -31,6 +31,9 @@ if (_finishTime > 0) exitWith {
             if (_treatmentClass != "") then { _treatmentArgs set [2, _treatmentClass]; };
         };
         if ((_treatmentTarget == _target) && {(_treatmentEvent select [0, 1]) != "#"}) then {
+						if (_treatmentEvent == QEGVAR(medical_treatment,medicationLocal)) then {
+							[_treatmentTarget, _treatmentItem] call EFUNC(medical_treatment,addToTriageCard);
+						};
             [_treatmentEvent, _treatmentArgs, _target] call CBA_fnc_targetEvent;
             #ifdef DEBUG_MODE_FULL
             INFO_4("%1->%2: %3 - %4",_healer,_target,_treatmentEvent,_treatmentArgs);
@@ -66,6 +69,14 @@ switch (true) do {
         _treatmentItem = "@bandage";
     };
     case (IN_CRDC_ARRST(_target) && {EGVAR(medical_treatment,cprSuccessChanceMin) > 0}): {
+				if (_isMedic && {CBA_missionTime >= (_target getVariable [QGVAR(nextEpinephrine), -1])}
+						&& {([_healer, "epinephrine"] call FUNC(itemCheck)) # 0}) exitWith {
+					_target setVariable [QGVAR(nextEpinephrine), CBA_missionTime + 300];
+					_treatmentEvent = QEGVAR(medical_treatment,medicationLocal);
+					_treatmentTime = 2.5;
+					_treatmentArgs = [_target, selectRandom ["leftarm", "rightarm", "leftleg", "rightleg"], "Epinephrine"];
+					_treatmentItem = "epinephrine";
+        };		
         _treatmentEvent = QEGVAR(medical_treatment,cprLocal);
         _treatmentArgs = [_healer, _target];
         _treatmentTime = 15;
@@ -104,29 +115,28 @@ switch (true) do {
         _treatmentArgs = [_healer, _target, "rightleg"];
         _treatmentItem = "splint";
     };
-    case ((IS_UNCONSCIOUS(_target) || {_heartRate <= 50})
-    && {([_healer, "epinephrine"] call FUNC(itemCheck)) # 0}): {
+    case ((_heartRate <= 50) && {([_healer, "epinephrine"] call FUNC(itemCheck)) # 0}): {
         if (CBA_missionTime < (_target getVariable [QGVAR(nextEpinephrine), -1])) exitWith {
             _treatmentEvent = "#waitForEpinephrineToTakeEffect";
         };
-        if (_heartRate > 180) exitWith {
+        if (_heartRate > 140) exitWith {
             _treatmentEvent = "#waitForSlowerHeart";
         };
-        _target setVariable [QGVAR(nextEpinephrine), CBA_missionTime + 10];
+        _target setVariable [QGVAR(nextEpinephrine), CBA_missionTime + 120];
         _treatmentEvent = QEGVAR(medical_treatment,medicationLocal);
         _treatmentTime = 2.5;
         _treatmentArgs = [_target, selectRandom ["leftarm", "rightarm", "leftleg", "rightleg"], "Epinephrine"];
         _treatmentItem = "epinephrine";
     };
-    case (((GET_PAIN_PERCEIVED(_target) > 0.25) || {_heartRate >= 180})
+    case (((GET_PAIN_PERCEIVED(_target) > 0.6) || {_heartRate > 140})
     && {([_healer, "morphine"] call FUNC(itemCheck)) # 0}): {
         if (CBA_missionTime < (_target getVariable [QGVAR(nextMorphine), -1])) exitWith {
             _treatmentEvent = "#waitForMorphineToTakeEffect";
         };
-        if (_heartRate < 60) exitWith {
+        if (_heartRate < 73) exitWith {
             _treatmentEvent = "#waitForFasterHeart";
         };
-        _target setVariable [QGVAR(nextMorphine), CBA_missionTime + 30];
+        _target setVariable [QGVAR(nextMorphine), CBA_missionTime + 450];
         _treatmentEvent = QEGVAR(medical_treatment,medicationLocal);
         _treatmentTime = 2.5;
         _treatmentArgs = [_target, selectRandom ["leftarm", "rightarm", "leftleg", "rightleg"], "Morphine"];
