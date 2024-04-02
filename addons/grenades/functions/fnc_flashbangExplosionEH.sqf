@@ -48,31 +48,29 @@ if (!isClass (configfile >> "CfgPatches" >> "Hz_AI")) then {
 	private _affected = (ASLtoAGL _grenadePosASL) nearEntities ["CAManBase", 20];
 	_affected = _affected - [ACE_player];
 	{
-			if (local _x && {alive _x}) then {
-					private _unit = _x;
-					private _strength = 1 - (((eyePos _unit) vectorDistance _grenadePosASL) min 20) / 20;
+				if (local _x && {alive _x}) then {
+							private _unit = _x;
+							private _strength = 1 - (((eyePos _unit) vectorDistance _grenadePosASL) min 20) / 20;
 
-					TRACE_3("FlashBangEffect Start",_unit,((getPosASL _unit) vectorDistance _grenadePosASL),_strength);
+							TRACE_3("FlashBangEffect Start",_unit,((getPosASL _unit) vectorDistance _grenadePosASL),_strength);
 
-					[_unit, true] call EFUNC(common,disableAI);
+							[_unit, true] call EFUNC(common,disableAI);
 
-					// Make AI try to look away
-					private _dirToFlash = _unit getDir _grenadePosASL;
-					_unit setDir (_dirToFlash + linearConversion [0.2, 1, _strength, 40, 135] * selectRandom [-1, 1]);
-
-					private _flashReactionDebounce = _unit getVariable [QGVAR(flashReactionDebounce), 0];
-					_unit setVariable [QGVAR(flashReactionDebounce), _flashReactionDebounce max (CBA_missionTime + (7 * _strength))];
-					if (_flashReactionDebounce < CBA_missionTime) then {
-							// Not used interally but could be useful for other mods
-							_unit setVariable [QGVAR(flashStrength), _strength, true];
-							{
-									_unit setSkill [_x, (_unit skill _x) / 50];
-							} forEach SUBSKILLS;
-							[{
-									params ["_unit"];
-									CBA_missiontime >= _unit getVariable [QGVAR(flashReactionDebounce), 0]
-							},{
-									params ["_unit"];
+							private _flashReactionDebounce = _unit getVariable [QGVAR(flashReactionDebounce), 0];
+							_unit setVariable [QGVAR(flashReactionDebounce), _flashReactionDebounce max (CBA_missionTime + (7 * _strength))];
+							
+							if (_flashReactionDebounce < CBA_missionTime) then {
+									// Not used interally but could be useful for other mods
+									_unit setVariable [QGVAR(flashStrength), _strength, true];
+									[QGVAR(flashbangedAI), [_unit, _strength, _grenadePosASL]] call CBA_fnc_localEvent;
+									{
+											_unit setSkill [_x, (_unit skill _x) / 50];
+									} forEach SUBSKILLS;
+									[{
+											params ["_unit"];
+											CBA_missiontime >= _unit getVariable [QGVAR(flashReactionDebounce), 0]
+									},{
+											params ["_unit"];
 
 									_unit setVariable [QGVAR(flashStrength), 0, true];
 
@@ -152,11 +150,11 @@ if (hasInterface && {!isNull ACE_player} && {alive ACE_player}) then {
 
         //PARTIALRECOVERY - start decreasing effect over time
         [{
-            params ["_strength"];
+            params ["_strength", "_blend"];
 
-            GVAR(flashbangPPEffectCC) ppEffectAdjust [1,1,0,[1,1,1,0],[0,0,0,1],[0,0,0,0]];
+            GVAR(flashbangPPEffectCC) ppEffectAdjust [1, 1, 0, _blend, [0,0,0,1], [0,0,0,0]];
             GVAR(flashbangPPEffectCC) ppEffectCommit (10 * _strength);
-        }, [_strength], 7 * _strength] call CBA_fnc_waitAndExecute;
+        }, [_strength, _blend], 7 * _strength] call CBA_fnc_waitAndExecute;
 
         //FULLRECOVERY - end effect
         [{
@@ -170,5 +168,7 @@ if (hasInterface && {!isNull ACE_player} && {alive ACE_player}) then {
     private _maxFlinch = linearConversion [0.2, 1, _strength, 0, 95, true];
     private _flinch    = (_minFlinch + random (_maxFlinch - _minFlinch)) * selectRandom [-1, 1];
     ACE_player setDir (getDir ACE_player + _flinch);
+
+    [QGVAR(flashbangedPlayer), [_strength, _grenadePosASL]] call CBA_fnc_localEvent;
 };
 true

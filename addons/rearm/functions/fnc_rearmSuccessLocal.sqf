@@ -101,7 +101,7 @@ private _maxMagazines = [_vehicle, _turretPath, _magazineClass] call FUNC(getMax
 private _ammoCounts = [_vehicle, _turretPath, _magazineClass] call FUNC(getTurretMagazineAmmo);
 TRACE_3("start",_magazineClass,_maxMagazines,_ammoCounts);
 
-private _ammoToAdd = if (GVAR(level) == 2) then {_numRounds} else {_rounds};
+private _ammoToAdd = [_rounds, _numRounds] select (GVAR(level) == 2);
 
 // Hunter'z Economy Interface
 private _HzCost = _ammoToAdd*_HzAmmoUnitCost;

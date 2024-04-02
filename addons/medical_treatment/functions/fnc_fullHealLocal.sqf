@@ -25,6 +25,9 @@ if ((["ace_fire"] call EFUNC(common,isModLoaded)) && {[_patient] call EFUNC(fire
     _patient setVariable [QEGVAR(fire,intensity), 0, true];
 };
 
+// Allow mods to heal
+[QGVAR(fullHealLocalMod), [_patient]] call CBA_fnc_localEvent;
+
 private _state = GET_SM_STATE(_patient);
 TRACE_1("start",_state);
 
@@ -37,12 +40,9 @@ if IN_CRDC_ARRST(_patient) then {
     TRACE_1("after CPRSucceeded",_state);
 };
 
-//_patient setVariable [VAR_PAIN, 0, true];
-
 // Wounds and Injuries
 _patient setVariable [VAR_STITCHED_WOUNDS, createHashMap, true];
 _patient setVariable [QEGVAR(medical,isLimping), false, true];
-//_patient setVariable [VAR_FRACTURES, DEFAULT_FRACTURE_VALUES, true];
 
 // Damage storage
 _patient setVariable [QEGVAR(medical,bodyPartDamage), [0,0,0,0,0,0], true];
